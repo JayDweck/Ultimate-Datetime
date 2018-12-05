@@ -1,0 +1,691 @@
+PASSED 1,000,000,000d 0h 0m 0.000000005s +/- 1 nanosecond TAI / 1,000,000,000d +/- 1 day TAI * 1 = 1,000,000,000d +/- 2 days TAI [Precision and uncertainty controlled by second value.]
+PASSED 1,000,000,002d 3h 4m 5.000000006 00000001s +/- 10 attoseconds TAI / 1,000,000,002d 3h 4m 5.000000006 00000001s +/- 10 attoseconds TAI * 1 = 1,000,000,002d 3h 4m 5.00s +/- 30 milliseconds TAI [Precision and uncertainty controlled by limits of double precision.]
+PASSED 0.5 x 1,000,000,000d +/- 10 days TAI = 500,000,000d +/- 5 days TAI [Divide in half.  Days precision.]
+PASSED 1,000,000,000d +/- 10 days TAI / 2d +/- 1 day TAI * 5e+08 = 1,000,000,000d +/- 1 gigaday TAI [Second value has 50% uncertainty.]
+PASSED 1,000,000,000d +/- 10 days TAI / 1,000,000,000d +/- 10 days TAI * 1 = 1,000,000,000d +/- 30 days TAI [Uncertainty triples upon division then multiplication.]
+PASSED 1,000,000,002d 3h 4m 5.000000006 00000001s +/- 10 attoseconds TAI + 1,000,000,002d 3h 4m 5.000000006 00000001s +/- 10 attoseconds TAI = 0.000000000 00000000s +/- 20 attoseconds TAI [All elements nonzero.  Same precision.]
+PASSED 1,000,000,002d 3h 4m 5.000000006 00000001s +/- 10 attoseconds TAI + 1,000,000,002d 3h 4m 5.000000006 00000001s +/- 10 attoseconds TAI = 2,000,000,004d 6h 8m 10.000000012 00000002s +/- 20 attoseconds TAI [All elements nonzero.  Same precision.]
+PASSED 1000 x 0d +/- 1 kiloday TAI = 0d +/- 1 megaday TAI [Overflow on uncertainty.]
+PASSED Relative datetime is larger than entire UTC datetime range [Overflow on multiplication.]
+PASSED 1000 x 1,000,000,001d 1h 2m 3.000000004 0000000s +/- 100 attoseconds TAI = 1,000,000,001,043d 2h 10m 0.000004000 0000s +/- 100 femtoseconds TAI [All elements nonzero, maximum precision.]
+PASSED 100 x 1,000,000,001d 1h 2m 3.000000004 0000000s +/- 100 attoseconds TAI = 100,000,000,104d 7h 25m 0.000000400 00000s +/- 10 femtoseconds TAI [All elements nonzero, maximum precision.]
+PASSED 10 x 1,000,000,001d 1h 2m 3.000000004 0000000s +/- 100 attoseconds TAI = 10,000,000,010d 10h 20m 30.000000040 000000s +/- 1 femtosecond TAI [All elements nonzero, maximum precision.]
+PASSED 9 x 1,000,000,001d 1h 2m 3.000000004 0000000s +/- 100 attoseconds TAI = 9,000,000,009d 9h 18m 27.000000036 0000000s +/- 900 attoseconds TAI [All elements nonzero, maximum precision.]
+PASSED 2000000000 x 1,000,000,001.000 000 001 000 000 001 = 2,000,000,002,000,000,002.000 000 002 000 000 000 [Large multiplier.]
+PASSED 2000000000 x 3,000,000,001.000 000 001 000 000 001 = 3,592,015,348,699,540,837.000 000 000 000 000 000 [Overflow.]
+PASSED 10 x 99,999,999,999.999 999 999 999 999 999 = 999,999,999,999.999 999 999 999 999 990 [Carry across all elements.]
+PASSED 100 x 99,999,999,999.999 999 999 999 999 999 = 9,999,999,999,999.999 999 999 999 999 900 [Carry across all elements.]
+PASSED 1000 x 99,999,999,999.999 999 999 999 999 999 = 99,999,999,999,999.999 999 999 999 999 000 [Carry across all elements.]
+PASSED 10000 x 99,999,999,999.999 999 999 999 999 999 = 999,999,999,999,999.999 999 999 999 990 000 [Carry across all elements.]
+PASSED 10 x -100,000,000,200.000 000 300 000 000 400 = -1,000,000,002,000.000 003 000 000 004 000 [All elements nonzero.  No carry.  Negative value.]
+PASSED 101 x -100,000,000,200.000 000 300 000 000 400 = -10,100,000,020,200.000 030 300 000 040 400 [All elements nonzero.  No carry.  Negative value.]
+PASSED 19,999,999,999.999 999 999 999 999 999 addRelTicks64 19,999,999,999.999 999 999 999 999 999 = 39,999,999,999.999 999 999 999 999 998 [Carry of all elements, both positive.]
+PASSED -19,999,999,999.999 999 999 999 999 999 addRelTicks64 -19,999,999,999.999 999 999 999 999 999 = -39,999,999,999.999 999 999 999 999 998 [Carry of all elements, both negative.]
+PASSED -19,999,999,999.999 999 999 999 999 999 addRelTicks64 19,999,999,999.999 999 999 999 999 999 = 0.000 000 000 000 000 000 [Carry of all elements, first negative, second positive.]
+PASSED 19,999,999,999.999 999 999 999 999 999 addRelTicks64 -19,999,999,999.999 999 999 999 999 999 = 0.000 000 000 000 000 000 [Carry of all elements, first positive, second negative.]
+PASSED 19,999,999,999.999 999 999 999 999 999 addRelTicks32 19,999,999,999.999 999 999 999 999 999 = 39,999,999,999.999 999 999 999 999 998 [Carry of all elements, both positive.]
+PASSED -19,999,999,999.999 999 999 999 999 999 addRelTicks32 -19,999,999,999.999 999 999 999 999 999 = -39,999,999,999.999 999 999 999 999 998 [Carry of all elements, both negative.]
+PASSED -19,999,999,999.999 999 999 999 999 999 addRelTicks32 19,999,999,999.999 999 999 999 999 999 = 0.000 000 000 000 000 000 [Carry of all elements, first negative, second positive.]
+PASSED 19,999,999,999.999 999 999 999 999 999 addRelTicks32 -19,999,999,999.999 999 999 999 999 999 = 0.000 000 000 000 000 000 [Carry of all elements, first positive, second negative.]
+PASSED 19,999,999,999.999 999 999 999 999 999 addRelTicks 19,999,999,999.999 999 999 999 999 999 = 39,999,999,999.999 999 999 999 999 998 [Carry of all elements, both positive.]
+PASSED -19,999,999,999.999 999 999 999 999 999 addRelTicks -19,999,999,999.999 999 999 999 999 999 = -39,999,999,999.999 999 999 999 999 998 [Carry of all elements, both negative.]
+PASSED -19,999,999,999.999 999 999 999 999 999 addRelTicks 19,999,999,999.999 999 999 999 999 999 = 0.000 000 000 000 000 000 [Carry of all elements, first negative, second positive.]
+PASSED 19,999,999,999.999 999 999 999 999 999 addRelTicks -19,999,999,999.999 999 999 999 999 999 = 0.000 000 000 000 000 000 [Carry of all elements, first positive, second negative.]
+PASSED 19,999,999,999.999 999 999 999 999 999 subtractRelTicks64 19,999,999,999.999 999 999 999 999 999 = 0.000 000 000 000 000 000 [Carry of all elements, both positive.]
+PASSED -19,999,999,999.999 999 999 999 999 999 subtractRelTicks64 -19,999,999,999.999 999 999 999 999 999 = 0.000 000 000 000 000 000 [Carry of all elements, both negative.]
+PASSED -19,999,999,999.999 999 999 999 999 999 subtractRelTicks64 19,999,999,999.999 999 999 999 999 999 = -39,999,999,999.999 999 999 999 999 998 [Carry of all elements, first negative, second positive.]
+PASSED 19,999,999,999.999 999 999 999 999 999 subtractRelTicks64 -19,999,999,999.999 999 999 999 999 999 = 39,999,999,999.999 999 999 999 999 998 [Carry of all elements, first positive, second negative.]
+PASSED 19,999,999,999.999 999 999 999 999 999 subtractRelTicks32 19,999,999,999.999 999 999 999 999 999 = 0.000 000 000 000 000 000 [Carry of all elements, both positive.]
+PASSED -19,999,999,999.999 999 999 999 999 999 subtractRelTicks32 -19,999,999,999.999 999 999 999 999 999 = 0.000 000 000 000 000 000 [Carry of all elements, both negative.]
+PASSED -19,999,999,999.999 999 999 999 999 999 subtractRelTicks32 19,999,999,999.999 999 999 999 999 999 = -39,999,999,999.999 999 999 999 999 998 [Carry of all elements, first negative, second positive.]
+PASSED 19,999,999,999.999 999 999 999 999 999 subtractRelTicks32 -19,999,999,999.999 999 999 999 999 999 = 39,999,999,999.999 999 999 999 999 998 [Carry of all elements, first positive, second negative.]
+PASSED 19,999,999,999.999 999 999 999 999 999 subtractRelTicks 19,999,999,999.999 999 999 999 999 999 = 0.000 000 000 000 000 000 [Carry of all elements, both positive.]
+PASSED -19,999,999,999.999 999 999 999 999 999 subtractRelTicks -19,999,999,999.999 999 999 999 999 999 = 0.000 000 000 000 000 000 [Carry of all elements, both negative.]
+PASSED -19,999,999,999.999 999 999 999 999 999 subtractRelTicks 19,999,999,999.999 999 999 999 999 999 = -39,999,999,999.999 999 999 999 999 998 [Carry of all elements, first negative, second positive.]
+PASSED 19,999,999,999.999 999 999 999 999 999 subtractRelTicks -19,999,999,999.999 999 999 999 999 999 = 39,999,999,999.999 999 999 999 999 998 [Carry of all elements, first positive, second negative.]
+PASSED 1,000,000,001.000 000 001 000 000 001 addRelTicks64 2,000,000,002.000 000 002 000 000 002 = 3,000,000,003.000 000 003 000 000 003 [Nonzero values of all elements, both positive.]
+PASSED 1,000,000,002.000 000 003 000 000 004 addRelTicks64 2,000,000,006.000 000 007 000 000 008 = 3,000,000,008.000 000 010 000 000 012 [Nonzero values of all elements, both positive.]
+PASSED -1,000,000,002.000 000 003 000 000 004 addRelTicks64 -2,000,000,006.000 000 007 000 000 008 = -3,000,000,008.000 000 010 000 000 012 [Nonzero values of all elements, both negative.]
+PASSED 1,000,000,002.000 000 003 000 000 004 addRelTicks64 -5,000,000,006.000 000 007 000 000 008 = -4,000,000,004.000 000 004 000 000 004 [Nonzero values of all elements, first positive, second negative.]
+PASSED -1,000,000,002.000 000 003 000 000 004 addRelTicks64 5,000,000,006.000 000 007 000 000 008 = 4,000,000,004.000 000 004 000 000 004 [Nonzero values of all elements, first negative, second positive.]
+PASSED 1,000,000,001.000 000 001 000 000 001 addRelTicks32 2,000,000,002.000 000 002 000 000 002 = 3,000,000,003.000 000 003 000 000 003 [Nonzero values of all elements, both positive.]
+PASSED 1,000,000,002.000 000 003 000 000 004 addRelTicks32 2,000,000,006.000 000 007 000 000 008 = 3,000,000,008.000 000 010 000 000 012 [Nonzero values of all elements, both positive.]
+PASSED -1,000,000,002.000 000 003 000 000 004 addRelTicks32 -2,000,000,006.000 000 007 000 000 008 = -3,000,000,008.000 000 010 000 000 012 [Nonzero values of all elements, both negative.]
+PASSED 1,000,000,002.000 000 003 000 000 004 addRelTicks32 -5,000,000,006.000 000 007 000 000 008 = -4,000,000,004.000 000 004 000 000 004 [Nonzero values of all elements, first positive, second negative.]
+PASSED -1,000,000,002.000 000 003 000 000 004 addRelTicks32 5,000,000,006.000 000 007 000 000 008 = 4,000,000,004.000 000 004 000 000 004 [Nonzero values of all elements, first negative, second positive.]
+PASSED 3,000,000,000,000,000,002.000 000 003 000 000 004 addRelTicks64 3,000,000,000,000,000,006.000 000 007 000 000 008 = 3,592,015,348,699,540,837.000 000 000 000 000 000 [Overflows on add.]
+PASSED 3,000,000,000,000,000,002.000 000 003 000 000 004 addRelTicks32 3,000,000,000,000,000,006.000 000 007 000 000 008 = 3,592,015,348,699,540,837.000 000 000 000 000 000 [Overflows with on add.]
+PASSED 4,294,967,295,500,000,000.000 000 003 000 000 004 addRelTicks64 500,000,000.000 000 007 000 000 008 = 3,592,015,348,699,540,837.000 000 000 000 000 000 [Overflows on carry.]
+PASSED 4,294,967,295,500,000,000.000 000 003 000 000 004 addRelTicks32 500,000,000.000 000 007 000 000 008 = 3,592,015,348,699,540,837.000 000 000 000 000 000 [Overflows on carry.]
+PASSED 31-Dec-99,999,999,999 23:59:59.999999999 999999999 +/- 5 attoseconds UTC - 25-Dec-13,826,151,189 BCE 12:00:01.000000000 000000000 +/- 8 attoseconds UTC = 41,574,251,721,059d 12h 0m 36.000000000 00000000s +/- 10 attoseconds TAI
+PASSED 41,000,123,456,789d 12h 10m 20.123456789 123456789s TAI = 41,000,123,456,789d 12h 10m 20.123456789 123456789s TAI [Nearly maximum value. All elements nonzero values.]
+PASSED 41,000,123,456,789d 12h +/- 30 minutes TAI = 41,000,123,456,789d 12h +/- 30 minutes TAI [Nearly maximum value. All elements nonzero values.]
+PASSED 41,000,123,456,789d 12h +/- 30 minutes TAI = 41,000,123,456,789d 12h +/- 30 minutes TAI [Computed precision: hours. All elements nonzero values.]
+PASSED 4,100,123,456,789d 12h 10m +/- 30 seconds TAI = 4,100,123,456,789d 12h 10m +/- 30 seconds TAI [Computed precision: minutes. All elements nonzero values.]
+PASSED 100,123,456,789d 12h 10m 20s +/- 500 milliseconds TAI = 100,123,456,789d 12h 10m 20s +/- 500 milliseconds TAI [Computed precision: seconds. All elements nonzero values.]
+PASSED Relative datetime is larger than entire UTC datetime range / Hours greater than 23 / Minutes greater than 59 / Seconds greater than 59 / Nanoseconds greater than or equal to 1e9 / Attoseconds greater than or equal to 1e9 / Invalid precision and/or uncertaintyPASSED Invalid precision and/or uncertainty [Generate all specification errors]
+PASSED 0d 0h 0m 0.000000012 123456789s TAI = 0d 0h 0m 0.000000012 123456789s TAI [12 nanoseconds, unspecified precision, no uncertainty. Tests maxprecision.]
+PASSED 1d 23h 59m 59.123456789 123456789s TAI = 1d 23h 59m 59.123456789 123456789s TAI [Just less than 2 days, unspecified precision, no uncertainty]
+PASSED 0d 23h 59m 59.123456789 123456789s TAI = 0d 23h 59m 59.123456789 123456789s TAI [Just less than 1 day, unspecified precision, no uncertainty]
+PASSED 0.000000012 123456789s +/- 0.5 attosecond TAI = 0.000000012 123456789s +/- 0.5 attosecond TAI [12 nanoseconds, unspecified precision, no uncertainty. Tests maxprecision.]
+PASSED 1d 23h 59m 59.123456789 1s +/- 50 picoseconds TAI = 1d 23h 59m 59.123456789 1s +/- 50 picoseconds TAI [Just less than 2 days, unspecified precision, no uncertainty]
+PASSED 23h 59m 59.123456789 12s +/- 5 picoseconds TAI = 23h 59m 59.123456789 12s +/- 5 picoseconds TAI [Just less than 1 day, unspecified precision, no uncertainty]
+PASSED 0.000000012 123456789s +/- 0.5 attosecond TAI = 0.000000012 123456789s +/- 0.5 attosecond TAI [12 nanoseconds, unspecified precision, no uncertainty. Tests maxprecision.]
+PASSED 1d 23h 59m 59.123456789 1s +/- 50 picoseconds TAI = 1d 23h 59m 59.123456789 1s +/- 50 picoseconds TAI [Just less than 2 days, unspecified precision, no uncertainty]
+PASSED 23h 59m 59.123456789 12s +/- 5 picoseconds TAI = 23h 59m 59.123456789 12s +/- 5 picoseconds TAI [Just less than 1 day, unspecified precision, no uncertainty]
+PASSED 29-Jun-1972 23:59:59.123456789 1 +/- 200 picoseconds UTC = 29-Jun-1972 23:59:59.123456789 1 +/- 200 picoseconds UTC [Within the last second of a normal day]
+PASSED 30-Jun-1972 23:59:59.123456789 1 +/- 200 picoseconds UTC = 30-Jun-1972 23:59:59.123456789 1 +/- 200 picoseconds UTC [Within the next to last second of a leap second day]
+PASSED 30-Jun-1972 23:59:60.123456789 1 +/- 200 picoseconds UTC = 30-Jun-1972 23:59:60.123456789 1 +/- 200 picoseconds UTC [Within the last second of a leap second day]
+PASSED 29-Jun-1972 23:59:59.123456789 1234 +/- 200 femtoseconds UTC = 29-Jun-1972 23:59:59.123456789 1234 +/- 200 femtoseconds UTC [Within the last second of a normal day]
+PASSED 30-Jun-1972 23:59:59.123456789 1234 +/- 200 femtoseconds UTC = 30-Jun-1972 23:59:59.123456789 1234 +/- 200 femtoseconds UTC [Within the next to last second of a leap second day]
+PASSED 30-Jun-1972 23:59:60.123456789 1234 +/- 200 femtoseconds UTC = 30-Jun-1972 23:59:60.123456789 1234 +/- 200 femtoseconds UTC [Within the last second of a leap second day]
+PASSED 30-Jun-1972 is a leap second day. [First leap second day]
+PASSED 29-Jun-1972 is not a leap second day. [Day before first leap second day]
+PASSED 30-Jun-1,000,001,972 is not a leap second day. [1 billion years after first leap second day]
+PASSED 30-Jun-1973 BCE is not a leap second day. [Negative of first leap second day]
+PASSED 31-Dec-1972 is a leap second day. [Second leap second day]
+PASSED 31-Dec-1973 is a leap second day. [Third leap second day]
+PASSED 31-Dec-1974 is a leap second day. [Fourth leap second day]
+PASSED 31-Dec-1975 is a leap second day. [Fifth leap second day]
+PASSED 31-Dec-1976 is a leap second day. [Sixth leap second day]
+PASSED 31-Dec-1977 is a leap second day. [Seventh leap second day]
+PASSED 31-Dec-1978 is a leap second day. [Eighth leap second day]
+PASSED 31-Dec-1979 is a leap second day. [Ninth leap second day]
+PASSED 30-Jun-1981 is a leap second day. [Tenth leap second day]
+PASSED 30-Jun-1982 is a leap second day. [Eleventh leap second day]
+PASSED 30-Jun-1983 is a leap second day. [Twelfth leap second day]
+PASSED 30-Jun-1985 is a leap second day. [Thirteenth leap second day]
+PASSED 31-Dec-1987 is a leap second day. [Fourteenth leap second day]
+PASSED 31-Dec-1989 is a leap second day. [Fifteenth leap second day]
+PASSED 31-Dec-1990 is a leap second day. [Sixteenth leap second day]
+PASSED 30-Jun-1992 is a leap second day. [Seventeenth leap second day]
+PASSED 30-Jun-1993 is a leap second day. [Eighteenth leap second day]
+PASSED 30-Jun-1994 is a leap second day. [Nineteenth leap second day]
+PASSED 31-Dec-1995 is a leap second day. [Twentieth leap second day]
+PASSED 30-Jun-1997 is a leap second day. [Twenty First leap second day]
+PASSED 31-Dec-1998 is a leap second day. [Twenty Second leap second day]
+PASSED 31-Dec-2005 is a leap second day. [Twenty Third leap second day]
+PASSED 31-Dec-2008 is a leap second day. [Twenty Fourth leap second day]
+PASSED 30-Jun-2012 is a leap second day. [Twenty Fifth leap second day]
+PASSED 30-Jun-2015 is a leap second day. [Twenty Sixth leap second day]
+PASSED 31-Dec-2016 is a leap second day. [Twenty Seventh leap second day]
+PASSED 01-Jan-100,000,000,000 is a Saturday. [Day after max time, accounts for local times ahead of UTC]
+PASSED Datetime is greater than the maximum datetime [Two days after max time]
+PASSED 31-Dec-99,999,999,999 is a Friday. [Max time]
+PASSED 24-Dec-13,826,151,189 BCE is a Wednesday. [Day before creation, accounts for time zones more than 12 hours behind UTC]
+PASSED Datetime is before the Big Bang [Two days before creation]
+PASSED 14-Mar-2015 is a Saturday. [Recent date]
+PASSED 66666666.500000000000000100 -> 66666667.499999990000000100 -> 66666666.500000000000000100 [Carry caused by nanoseconds in the unadjusted value in the second preceding the second when the adjustment exceeds a second]
+PASSED 90000000.900000000000000100 -> 90000002.250000000000000100 -> 90000000.900000000000000100 [Carry caused by nanoseconds in the unadjusted value after the last time the adjustment exceeds a second]
+PASSED 100000000.500000000000000100 -> 100000002.000000000000000100 -> 100000000.500000000000000100 [Carry caused by nanoseconds in the unadjusted value well before the adjustment exceeds a second]
+PASSED 208333330.500000000000000100 -> 208333335.499999920000000100 -> 208333330.500000000000000100 [Carry caused by nanoseconds in the unadjusted value 4 seconds before the second where the adjustment exceeeds 5 seconds]
+PASSED 208333331.500000000000000100 -> 208333336.499999944000000100 -> 208333331.500000000000000100 [Carry caused by nanoseconds in the unadjusted value 3 seconds before the second where the adjustment exceeeds 5 seconds]
+PASSED 208333332.500000000000000100 -> 208333337.499999968000000100 -> 208333332.500000000000000100 [Carry caused by nanoseconds in the unadjusted value 2 seconds before the second where the adjustment exceeeds 5 seconds]
+PASSED 208333333.500000000000000100 -> 208333338.499999992000000100 -> 208333333.500000000000000100 [Carry caused by nanoseconds in the unadjusted value 1 second before the second where the adjustment exceeeds 5 seconds]
+PASSED 208333334.500000000000000100 -> 208333339.500000016000000100 -> 208333334.500000000000000100 [Carry caused by nanoseconds in the unadjusted value the second where the adjustment exceeeds 5 seconds]
+PASSED 208333335.500000000000000100 -> 208333340.500000040000000100 -> 208333335.500000000000000100 [Carry caused by nanoseconds in the unadjusted value the second after the second where the adjustment exceeeds 5 seconds]
+PASSED 0.000000000000000100 -> 0.000000000000000100 [Subsecond interval-no adjustment]
+PASSED 1.000000000000000100 -> 1.000000015000000100 [1 second interval plus attoseconds]
+PASSED 40000000.000000000000000100 -> 40000000.600000000000000100 [Cumulative adjustment less than 1 second]
+PASSED 66666666.000000000000000100 -> 66666666.999999990000000100 [Second preceding second where the adjustment exceeds 1 second]
+PASSED 66666667.000000000000000100 -> 66666668.000000005000000100 [Second at which adjustment exceeds 1 second]
+PASSED 40000000.500000000000000100 -> 40000001.100000000000000100
+PASSED 66666666.500000000000000100 -> 66666667.499999990000000100
+PASSED 66666667.500000000000000100 -> 66666668.500000005000000100
+PASSED 0.000000000000000100 -> 0.000000000000000100
+PASSED 1.000000000000000100 -> 1.000000024000000100
+PASSED 41666666.500000000000000100 -> 41666667.499999984000000100
+PASSED 41666667.500000000000000100 -> 41666668.500000008000000100
+PASSED 83333333.500000000000000100 -> 83333335.499999992000000100
+PASSED 83333334.500000000000000100 -> 83333336.500000016000000100
+PASSED 0.000000000000000100 -> 0.000000000000000100 -> 0.000000000000000100
+PASSED 1.000000000000000100 -> 1.000000015000000100 -> 1.000000000000000100
+PASSED 40000000.000000000000000100 -> 40000000.600000000000000100 -> 40000000.000000000000000100
+PASSED 66666666.000000000000000100 -> 66666666.999999990000000100 -> 66666666.000000000000000100
+PASSED 66666667.000000000000000100 -> 66666668.000000005000000100 -> 66666667.000000000000000100
+PASSED 40000000.500000000000000100 -> 40000001.100000000000000100 -> 40000000.500000000000000100
+PASSED 66666666.500000000000000100 -> 66666667.499999990000000100 -> 66666666.500000000000000100
+PASSED 66666667.500000000000000100 -> 66666668.500000005000000100 -> 66666667.500000000000000100
+PASSED 0.000000000000000100 -> 0.000000000000000100 -> 0.000000000000000100
+PASSED 1.000000000000000100 -> 1.000000024000000100 -> 1.000000000000000100
+PASSED 41666666.500000000000000100 -> 41666667.499999984000000100 -> 41666666.500000000000000100
+PASSED 41666667.500000000000000100 -> 41666668.500000008000000100 -> 41666667.500000000000000100
+PASSED 83333333.500000000000000100 -> 83333335.499999992000000100 -> 83333333.500000000000000100
+PASSED 83333334.500000000000000100 -> 83333336.500000016000000100 -> 83333334.500000000000000100
+PASSED 25-Dec-13,826,151,189 BCE 12:09:05.000000050 00000000 +/- 10 attoseconds UTC = 25-Dec-13,826,151,189 BCE 12:09:05.000000050 00000000 +/- 10 attoseconds UTC [Hours after Big Bang]
+PASSED 25-Dec-13,826,151,189 BCE 23:59:59.000000050 00000000 +/- 10 attoseconds UTC = 25-Dec-13,826,151,189 BCE 23:59:59.000000050 00000000 +/- 10 attoseconds UTC [End of Big Bang day]
+PASSED 26-Dec-13,826,151,189 BCE 12:09:05.000000050 00000000 +/- 10 attoseconds UTC = 26-Dec-13,826,151,189 BCE 12:09:05.000000050 00000000 +/- 10 attoseconds UTC [Day after the Big Bang]
+PASSED 27-Dec-13,826,151,189 BCE 03:09:05.000000050 00000000 +/- 10 attoseconds UTC = 27-Dec-13,826,151,189 BCE 03:09:05.000000050 00000000 +/- 10 attoseconds UTC [2 days after the Big Bang]
+PASSED 31-Dec-13,826,151,189 BCE 23:59:59.000000050 00000000 +/- 10 attoseconds UTC = 31-Dec-13,826,151,189 BCE 23:59:59.000000050 00000000 +/- 10 attoseconds UTC [End of the creation period]
+PASSED 01-Jan-13,826,151,188 BCE 00:00:00.000000050 00000000 +/- 10 attoseconds UTC = 01-Jan-13,826,151,188 BCE 00:00:00.000000050 00000000 +/- 10 attoseconds UTC
+PASSED 01-Jan-13,826,151,185 BCE 00:00:00.000000050 00000000 +/- 10 attoseconds UTC = 01-Jan-13,826,151,185 BCE 00:00:00.000000050 00000000 +/- 10 attoseconds UTC
+PASSED 29-Feb-13,826,151,185 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC = 29-Feb-13,826,151,185 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC
+PASSED 01-Mar-13,826,151,185 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC = 01-Mar-13,826,151,185 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC
+PASSED 29-Feb-12,900,000,001 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC = 29-Feb-12,900,000,001 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC
+PASSED 01-Mar-12,900,000,001 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC = 01-Mar-12,900,000,001 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC
+PASSED 29-Feb-12,800,000,001 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC = 29-Feb-12,800,000,001 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC
+PASSED 01-Mar-12,800,000,001 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC = 01-Mar-12,800,000,001 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC
+PASSED 12-Jan-1,000,000,002 BCE 12:13:15.000000500 000000200 +/- 0.5 attosecond UTC = 12-Jan-1,000,000,002 BCE 12:13:15.000000500 000000200 +/- 0.5 attosecond UTC
+PASSED 01-Mar-900,000,001 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC = 01-Mar-900,000,001 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC
+PASSED 01-Mar-800,000,001 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC = 01-Mar-800,000,001 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC
+PASSED 01-Mar-4713 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC = 01-Mar-4713 BCE 08:15:00.000000050 00000000 +/- 10 attoseconds UTC
+PASSED 01-Jan-1 BCE 00:00:00.000000000 00000000 +/- 10 attoseconds UTC = 01-Jan-1 BCE 00:00:00.000000000 00000000 +/- 10 attoseconds UTC
+PASSED 01-Jan-1 00:00:00.000000000 00000000 +/- 10 attoseconds UTC = 01-Jan-1 00:00:00.000000000 00000000 +/- 10 attoseconds UTC
+PASSED 01-Jan-1500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 29-Feb-1500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 29-Feb-1500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1501 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1501 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1501 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1501 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1501 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1501 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1502 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1502 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1502 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1502 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1502 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1502 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1503 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1503 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1503 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1503 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1503 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1503 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1580 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1580 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 29-Feb-1580 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 29-Feb-1580 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1580 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1580 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED Invalid precision and/or uncertainty / Future adjustment is greater than 2, or is 0 when datetime is after the last leap second
+PASSED 31-Dec-1588 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1588 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1589 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1589 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 29-Feb-1588 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 29-Feb-1588 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 15-Oct-1582 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 15-Oct-1582 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1582 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1582 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1587 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1587 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1588 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1588 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 29-Feb-1588 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 29-Feb-1588 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1588 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1588 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1589 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1589 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1589 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1589 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED Invalid day of the month
+PASSED 01-Mar-1589 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1589 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1590 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1590 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1590 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1590 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1590 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1590 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1600 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1600 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1600 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1600 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 29-Jan-1600 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 29-Jan-1600 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1600 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1600 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1600 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1600 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1601 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1601 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1601 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1601 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1601 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1601 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1601 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1601 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1602 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1602 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1602 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1602 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1602 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1602 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1602 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1602 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1603 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1603 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1603 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1603 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1603 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1603 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1603 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1603 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1604 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1604 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1604 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1604 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 29-Jan-1604 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 29-Jan-1604 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1604 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1604 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1604 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1604 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1605 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1605 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1605 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1605 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1605 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1605 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1605 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1605 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1606 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1606 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1606 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1606 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1606 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1606 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1606 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1606 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1607 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1607 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1607 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1607 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1607 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1607 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1607 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1607 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1700 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1700 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1700 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1700 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED Invalid day of the month
+PASSED 01-Mar-1700 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1700 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1700 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1700 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1701 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1701 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1701 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1701 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1701 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1701 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1701 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1701 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1702 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1702 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1702 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1702 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1702 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1702 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1702 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1702 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1703 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1703 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1703 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1703 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1703 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1703 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1703 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1703 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1800 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1800 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1800 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1800 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED Invalid day of the month
+PASSED 01-Mar-1800 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1800 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1800 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1800 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1801 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1801 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1801 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1801 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1801 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1801 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1801 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1801 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1802 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1802 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1802 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1802 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1802 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1802 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1802 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1802 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1803 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1803 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1803 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1803 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1803 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1803 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1803 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1803 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1900 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1900 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1900 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1900 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED Invalid day of the month
+PASSED 01-Mar-1900 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1900 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1900 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1900 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1901 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1901 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1901 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1901 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1901 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1901 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1901 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1901 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1902 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1902 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1902 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1902 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1902 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1902 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1902 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1902 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1903 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1903 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1903 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1903 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1903 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1903 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-1903 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-1903 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1958 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1958 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 28-Feb-1958 09:15:14.000000000 00000000 +/- 20 attoseconds UTC = 28-Feb-1958 09:15:14.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 31-Dec-1958 23:59:59.999999999 99999000 +/- 20 attoseconds UTC = 31-Dec-1958 23:59:59.999999999 99999000 +/- 20 attoseconds UTC
+PASSED 31-Dec-1958 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1958 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1959 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1959 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 28-Feb-1959 09:15:14.000000000 00000000 +/- 20 attoseconds UTC = 28-Feb-1959 09:15:14.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 31-Dec-1959 23:59:59.999999999 99999000 +/- 20 attoseconds UTC = 31-Dec-1959 23:59:59.999999999 99999000 +/- 20 attoseconds UTC
+PASSED 31-Dec-1959 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1959 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1960 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1960 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 29-Feb-1960 09:15:14.000000000 00000000 +/- 20 attoseconds UTC = 29-Feb-1960 09:15:14.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 31-Dec-1960 23:59:59.999999999 99999000 +/- 20 attoseconds UTC = 31-Dec-1960 23:59:59.999999999 99999000 +/- 20 attoseconds UTC
+PASSED 31-Dec-1960 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1960 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 31-Dec-1961 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1961 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1958 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1958 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1958 09:15:20.111111111 22222222 +/- 20 attoseconds UTC = 30-Jun-1958 09:15:20.111111111 22222222 +/- 20 attoseconds UTC
+PASSED 31-Dec-1958 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1958 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1959 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1959 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1959 09:15:20.111111111 22222222 +/- 20 attoseconds UTC = 30-Jun-1959 09:15:20.111111111 22222222 +/- 20 attoseconds UTC
+PASSED 31-Dec-1959 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1959 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 31-Dec-1959 23:59:59.999999999 99999000 +/- 20 attoseconds UTC = 31-Dec-1959 23:59:59.999999999 99999000 +/- 20 attoseconds UTC
+PASSED 01-Jan-1960 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1960 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1960 09:15:20.111111111 22222222 +/- 20 attoseconds UTC = 30-Jun-1960 09:15:20.111111111 22222222 +/- 20 attoseconds UTC
+PASSED 31-Dec-1960 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1960 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1961 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1961 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1961 09:15:20.111111111 22222222 +/- 20 attoseconds UTC = 30-Jun-1961 09:15:20.111111111 22222222 +/- 20 attoseconds UTC
+PASSED 31-Dec-1961 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1961 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1962 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1962 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1962 09:15:20.111111111 22222222 +/- 20 attoseconds UTC = 30-Jun-1962 09:15:20.111111111 22222222 +/- 20 attoseconds UTC
+PASSED 31-Dec-1962 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1962 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1963 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1963 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1963 09:15:20.111111111 22222222 +/- 20 attoseconds UTC = 30-Jun-1963 09:15:20.111111111 22222222 +/- 20 attoseconds UTC
+PASSED 31-Dec-1963 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1963 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1964 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1964 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1964 09:15:20.111111111 22222222 +/- 20 attoseconds UTC = 30-Jun-1964 09:15:20.111111111 22222222 +/- 20 attoseconds UTC
+PASSED 31-Dec-1964 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1964 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1965 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1965 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1965 09:15:20.111111111 22222222 +/- 20 attoseconds UTC = 30-Jun-1965 09:15:20.111111111 22222222 +/- 20 attoseconds UTC
+PASSED 31-Dec-1965 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1965 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1966 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1966 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Feb-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC = 01-Feb-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Mar-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC = 01-Mar-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Apr-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC = 01-Apr-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-May-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC = 01-May-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Jun-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC = 01-Jun-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Jul-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC = 01-Jul-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Aug-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC = 01-Aug-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Sep-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC = 01-Sep-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Oct-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC = 01-Oct-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Nov-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC = 01-Nov-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Dec-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC = 01-Dec-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Jan-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1966 00:00:00.500000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1966 09:15:20.111111111 22222222 +/- 20 attoseconds UTC = 30-Jun-1966 09:15:20.111111111 22222222 +/- 20 attoseconds UTC
+PASSED 31-Dec-1966 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1966 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1967 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1967 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1967 09:15:20.111111111 22222222 +/- 20 attoseconds UTC = 30-Jun-1967 09:15:20.111111111 22222222 +/- 20 attoseconds UTC
+PASSED 31-Dec-1967 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1967 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1968 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1968 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1968 09:15:20.111111111 22222222 +/- 20 attoseconds UTC = 30-Jun-1968 09:15:20.111111111 22222222 +/- 20 attoseconds UTC
+PASSED 31-Dec-1968 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1968 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1969 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1969 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1969 09:15:20.111111111 22222222 +/- 20 attoseconds UTC = 30-Jun-1969 09:15:20.111111111 22222222 +/- 20 attoseconds UTC
+PASSED 31-Dec-1969 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1969 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1970 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1970 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1970 09:15:20.111111111 22222222 +/- 20 attoseconds UTC = 30-Jun-1970 09:15:20.111111111 22222222 +/- 20 attoseconds UTC
+PASSED 31-Dec-1970 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1970 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1971 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1971 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1971 09:15:20.111111111 22222222 +/- 20 attoseconds UTC = 30-Jun-1971 09:15:20.111111111 22222222 +/- 20 attoseconds UTC
+PASSED 31-Dec-1971 23:59:59.999999999 99999999 +/- 20 attoseconds UTC = 31-Dec-1971 23:59:59.999999999 99999999 +/- 20 attoseconds UTC
+PASSED 01-Jan-1972 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-1972 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1972 23:59:59.000000000 00000000 +/- 20 attoseconds UTC = 30-Jun-1972 23:59:59.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-1972 23:59:60.000000000 00000000 +/- 20 attoseconds UTC = 30-Jun-1972 23:59:60.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Jul-1972 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jul-1972 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 31-Dec-1972 23:59:59.000000000 00000000 +/- 20 attoseconds UTC = 31-Dec-1972 23:59:59.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 31-Dec-1972 23:59:60.000000000 00000000 +/- 20 attoseconds UTC = 31-Dec-1972 23:59:60.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 31-Dec-1999 23:59:59.999999999 44444444 +/- 20 attoseconds UTC = 31-Dec-1999 23:59:59.999999999 44444444 +/- 20 attoseconds UTC
+PASSED 01-Jan-2000 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-2000 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 31-Dec-2005 23:59:59.000000000 00000000 +/- 20 attoseconds UTC = 31-Dec-2005 23:59:59.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 31-Dec-2005 23:59:60.000000000 00000000 +/- 20 attoseconds UTC = 31-Dec-2005 23:59:60.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Jan-2006 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-2006 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 31-Dec-2008 23:59:59.000000000 00000000 +/- 20 attoseconds UTC = 31-Dec-2008 23:59:59.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 31-Dec-2008 23:59:60.000000000 00000000 +/- 20 attoseconds UTC = 31-Dec-2008 23:59:60.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Jan-2009 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jan-2009 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-2012 23:59:59.000000000 00000000 +/- 20 attoseconds UTC = 30-Jun-2012 23:59:59.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-2012 23:59:60.000000000 00000000 +/- 20 attoseconds UTC = 30-Jun-2012 23:59:60.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Jul-2012 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jul-2012 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-2015 23:59:59.000000000 00000000 +/- 20 attoseconds UTC = 30-Jun-2015 23:59:59.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 30-Jun-2015 23:59:60.000000000 00000000 +/- 20 attoseconds UTC = 30-Jun-2015 23:59:60.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Jul-2015 00:00:00.000000000 00000000 +/- 20 attoseconds UTC = 01-Jul-2015 00:00:00.000000000 00000000 +/- 20 attoseconds UTC
+PASSED 01-Jan-2100 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2100 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2100 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2100 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED Invalid day of the month
+PASSED 01-Mar-2100 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2100 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-2100 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-2100 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2101 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2101 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2101 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2101 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2101 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2101 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-2101 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-2101 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2102 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2102 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2102 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2102 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2102 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2102 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-2102 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-2102 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2103 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2103 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2103 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2103 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2103 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2103 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-2103 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-2103 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2200 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2200 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2200 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2200 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED Invalid day of the month
+PASSED 01-Mar-2200 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2200 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-2200 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-2200 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2201 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2201 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2201 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2201 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2201 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2201 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-2201 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-2201 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2202 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2202 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2202 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2202 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2202 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2202 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-2202 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-2202 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2203 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2203 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2203 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2203 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2203 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2203 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-2203 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-2203 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2300 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2300 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2300 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2300 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED Invalid day of the month
+PASSED 01-Mar-2300 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2300 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-2300 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-2300 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2301 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2301 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2301 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2301 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2301 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2301 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-2301 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-2301 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2302 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2302 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2302 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2302 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2302 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2302 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-2302 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-2302 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2303 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2303 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2303 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2303 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2303 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2303 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-2303 08:02:05.000000400 00000050 +/- 20 attoseconds UTC = 31-Dec-2303 08:02:05.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1,000,002,399 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1,000,002,399 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1,000,002,399 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1,000,002,399 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1,000,002,399 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1,000,002,399 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2400 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2400 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 29-Feb-2400 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 29-Feb-2400 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2400 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2400 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2401 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2401 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2401 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2401 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2401 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2401 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2402 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2402 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2402 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2402 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2402 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2402 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2403 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2403 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2403 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2403 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2403 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2403 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2404 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2404 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 29-Feb-2404 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 29-Feb-2404 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2404 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2404 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2405 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2405 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2405 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2405 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2405 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2405 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2406 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2406 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2406 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2406 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2406 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2406 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2407 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2407 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2407 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2407 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2407 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2407 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED Invalid day of the month
+PASSED 01-Mar-2500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2501 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2501 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2501 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2501 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2501 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2501 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2502 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2502 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2502 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2502 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2502 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2502 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2503 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2503 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2503 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2503 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2503 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2503 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2504 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2504 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 29-Feb-2504 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 29-Feb-2504 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2504 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2504 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2505 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2505 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2505 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2505 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2505 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2505 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2506 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2506 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2506 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2506 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2506 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2506 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-2507 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-2507 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-2507 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-2507 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-2507 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-2507 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Jan-1,000,002,500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Jan-1,000,002,500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 28-Feb-1,000,002,500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 28-Feb-1,000,002,500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 01-Mar-1,000,002,500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC = 01-Mar-1,000,002,500 15:03:03.000000400 00000050 +/- 20 attoseconds UTC
+PASSED 31-Dec-99,999,999,999 23:59:59.999999999 999999999 +/- 5 attoseconds UTC = 31-Dec-99,999,999,999 23:59:59.999999999 999999999 +/- 5 attoseconds UTC
+PASSED 04-Oct-1582 12:00:00.0 +/- 100 milliseconds UTC - 25-Dec-13,826,151,189 BCE 12:00:00.0 +/- 100 milliseconds UTC = 5,050,002,299,160d 0h 0m 0.0s +/- 200 milliseconds TAI
+PASSED 04-Oct-1582 00:00:00.0 +/- 100 milliseconds UTC - 01-Jan-4713 BCE 00:00:00.0 +/- 100 milliseconds UTC = 2,299,160d 0h 0m 0.0s +/- 200 milliseconds TAI
+PASSED 01-Jan-1958 00:00:00.00000000 +/- 10 nanoseconds UTC - 31-Dec-1957 23:59:59.00000000 +/- 10 nanoseconds UTC = 1.00000000s +/- 20 nanoseconds TAI [Transition to Early Atomic Period]
+PASSED 01-Jan-1958 00:00:01.00000000 +/- 10 nanoseconds UTC - 01-Jan-1958 00:00:00.00000000 +/- 10 nanoseconds UTC = 1.00000002s +/- 20 nanoseconds TAI [First second of Early Atomic Period]
+PASSED 01-Jan-1961 00:00:00.000000000 +/- 1 nanosecond UTC - 31-Dec-1960 23:59:59.000000000 +/- 1 nanosecond UTC = 1.002402015s +/- 2 nanoseconds TAI [Transition to Early UTC Period]
+PASSED 01-Jan-1961 00:00:01.000000000 +/- 1 nanosecond UTC - 01-Jan-1961 00:00:00.000000000 +/- 1 nanosecond UTC = 1.000000024s +/- 2 nanoseconds TAI [First second of Early UTC Period]
+PASSED 01-Jan-1968 00:00:00.000000000 +/- 1 nanosecond UTC - 31-Dec-1967 23:59:59.000000000 +/- 1 nanosecond UTC = 1.013542424s +/- 2 nanoseconds TAI [Transition to Early UTC2 Period]
+PASSED 01-Jan-1968 00:00:01.000000000 +/- 1 nanosecond UTC - 01-Jan-1968 00:00:00.000000000 +/- 1 nanosecond UTC = 1.000000025s +/- 2 nanoseconds TAI [First second of Early UTC2 Period]
+PASSED 01-Jan-1972 00:00:00.000000000 +/- 1 nanosecond UTC - 31-Dec-1971 23:59:59.000000000 +/- 1 nanosecond UTC = 1.107758025s +/- 2 nanoseconds TAI [Transition to Leap Second Period]
+PASSED 01-Jan-1972 00:00:01.000000000 +/- 1 nanosecond UTC - 01-Jan-1972 00:00:00.000000000 +/- 1 nanosecond UTC = 1.000000000s +/- 2 nanoseconds TAI [First second of Leap Second Period]
+PASSED 03-Mar-1960 00:00:00.0 +/- 100 milliseconds UTC - 03-Mar-1958 00:00:00.0 +/- 100 milliseconds UTC = 731d 0h 0m 0.9s +/- 200 milliseconds TAI
+PASSED 30-Jun-2012 23:59:60.0 +/- 100 milliseconds UTC - 01-Jul-2012 00:00:00.0 +/- 100 milliseconds UTC = -1.0s +/- 200 milliseconds TAI
+PASSED 01-Jan-2011 12:00:00.0 +/- 100 milliseconds UTC - 01-Jan-2015 12:00:00.0 +/- 100 milliseconds UTC = -1,461d 0h 0m 1.0s +/- 200 milliseconds TAI
+PASSED 01-Jan-3400 12:00:00.00 +/- 10 milliseconds UTC - 15-Aug-1972 00:00:00.000 +/- 5 milliseconds UTC = 521,340d 12h 0m 26.00s +/- 20 milliseconds TAI
+PASSED 15-Aug-11,399 00:02:10.00 +/- 10 milliseconds UTC - 15-Aug-1972 00:00:00.000 +/- 5 milliseconds UTC = 3,443,141d 0h 2m 36.00s +/- 20 milliseconds TAI
+PASSED 15-Aug-5,000,001,972 00:02:10.00 +/- 10 milliseconds UTC - 15-Aug-1972 00:00:00.000 +/- 5 milliseconds UTC = 1,826,212,500,000d 0h 2m 36.00s +/- 20 milliseconds TAI
+PASSED 16-Aug-5,000,001,973 00:02:10.00 +/- 10 milliseconds UTC - 15-Aug-1972 00:00:00.000 +/- 5 milliseconds UTC = 1,826,212,500,366d 0h 2m 36.00s +/- 20 milliseconds TAI
+PASSED 15-Aug-5,000,001,972 00:02:10.00 +/- 10 milliseconds UTC - 15-Aug-4,000,001,972 00:00:00.000 +/- 5 milliseconds UTC = 365,242,500,000d 0h 2m 10.00s +/- 20 milliseconds TAI
+PASSED 16-Aug-5,000,002,401 00:02:10.00 +/- 10 milliseconds UTC - 15-Aug-1972 00:00:00.000 +/- 5 milliseconds UTC = 1,826,212,656,690d 0h 2m 36.00s +/- 20 milliseconds TAI
+PASSED 15-Aug-1972 00:00:00.000 +/- 500 microseconds UTC - 15-Aug-1972 00:00:00.000 +/- 500 microseconds UTC = 0.000s +/- 1 millisecond TAI
+PASSED 15-Aug-1972 00:00:00.00 +/- 10 milliseconds UTC - 15-Aug-1972 00:00:00.000 +/- 5 milliseconds UTC = 0.00s +/- 20 milliseconds TAI
+PASSED 15-Aug-1972 00:00:10.00 +/- 10 milliseconds UTC - 15-Aug-1972 00:00:00.000 +/- 5 milliseconds UTC = 10.00s +/- 20 milliseconds TAI
+PASSED 15-Aug-1972 00:02:10.00 +/- 10 milliseconds UTC - 15-Aug-1972 00:00:00.000 +/- 5 milliseconds UTC = 2m 10.00s +/- 20 milliseconds TAI
+PASSED Aug-1972 +/- 1 month UTC - 15-Aug-1972 00:00:00.000 +/- 5 milliseconds UTC = -10d +/- 30 days TAI
+PASSED 16-Aug-1973 00:02:10.0 +/- 100 milliseconds UTC - 15-Aug-1972 00:00:00.000 +/- 5 milliseconds UTC = 366d 0h 2m 11.0s +/- 100 milliseconds TAI
+PASSED 15-Aug-1972 00:00:00.00 +/- 50 milliseconds UTC - 16-Aug-1973 00:02:10.00 +/- 10 milliseconds UTC = -366d 0h 2m 11.00s +/- 60 milliseconds TAI
+PASSED 16-Aug-2016 00:02:10.00 +/- 10 milliseconds UTC - 15-Aug-1972 00:00:00.000 +/- 5 milliseconds UTC = 16,072d 0h 2m 35.00s +/- 20 milliseconds TAI
+PASSED 16-Aug-2016 00:02:10 +/- 10 seconds UTC - 15-Aug-1957 00:00:00.000000000 00000000 +/- 50 attoseconds UTC = 21,551d 0h 2m 46s +/- 10 seconds TAI
+PASSED 01-Jan-1958 00:00:01.00000000 +/- 10 nanoseconds UTC - 31-Dec-1957 23:59:59.000000000 00000000 +/- 50 attoseconds UTC = 2.00000002s +/- 10 nanoseconds TAI
+PASSED 01-Jan-2016 00:00:00.00000000 +/- 10 nanoseconds UTC - 01-Jan-1972 00:00:00.000000000 00000000 +/- 50 attoseconds UTC = 16,071d 0h 0m 26.00000000s +/- 10 nanoseconds TAI
+PASSED 31-Dec-99,999,999,999 23:59:59.999999999 999999999 +/- 1 attosecond UTC - 25-Dec-13,826,151,189 BCE 12:00:01.000000000 000000000 +/- 2 attoseconds UTC = 41,574,251,721,059d 12h 0m 35.999999999 999999999s +/- 3 attoseconds TAI
+PASSED Datetime is before the Big Bang / Year is invalid / Month is invalid / Invalid day of the month / Hour is greater than 23, minute is greater than 59, and/or second is greater than 60 / Nanosecond is greater than or equal to 1e9 / Attosecond is greater than or equal to 1e9 / Invalid precision and/or uncertainty / Future adjustment is greater than 2, or is 0 when datetime is after the last leap second
+PASSED Second equals 60, but this is not a leap second
+PASSED 31-Dec-1971 00:00:00.000000000 0000000 +/- 100 attoseconds UTC has 0 leap seconds
+PASSED 31-Dec-1971 23:59:00.000000000 000000186 +/- 0.5 attosecond UTC has 0 leap seconds
+PASSED 31-Dec-1971 23:59:00.000000257 000000186 +/- 0.5 attosecond UTC has 0 leap seconds
+PASSED 31-Dec-1971 23:59:00.000000257 186000000 +/- 0.5 attosecond UTC has 0 leap seconds
+PASSED 30-Jun-1959 00:00:00.000000000 000000000 +/- 0.5 attosecond UTC has 0 leap seconds
+PASSED 31-Dec-1960 23:59:00.000000000 000000186 +/- 0.5 attosecond UTC has 0 leap seconds
+PASSED 31-Dec-1960 23:59:00.000000257 000000186 +/- 0.5 attosecond UTC has 0 leap seconds
+PASSED 31-Dec-1960 23:59:00.000000257 186000000 +/- 0.5 attosecond UTC has 0 leap seconds
+PASSED 01-Jan-4713 BCE 12:00:00.00000 +/- 5 microseconds UTC = Julian day: 0
+PASSED 15-Mar-99,000,003,725 00:00:00.00 +/- 50 milliseconds UTC has 27 leap seconds
+PASSED 01-Jan-1972 00:00:00.00000 +/- 30 microseconds UTC has 0 leap seconds
+PASSED 05-Dec-1957 12:00:00.000000000 000000000 +/- 0.5 attosecond UTC
+PASSED 18-Dec-1 BCE 05:04:03.000000000 000000000 +/- 0.5 attosecond UTC
+PASSED 01-Jan-2400 00:00 +/- 1 minute UTC has 27 leap seconds
+PASSED 31-Dec-2015 00:00:00.000 +/- 500 microseconds UTC has 26 leap seconds
+PASSED 30-Jun-1972 23:59:60.000 +/- 500 microseconds UTC has -1 leap seconds
+PASSED 01-Jul-1972 00:00:00.000 +/- 500 microseconds UTC has 1 leap seconds
+PASSED 15-Aug-1972 00:00:00.000 +/- 500 microseconds UTC has 1 leap seconds
+PASSED 31-Dec-1972 23:59:60.000 +/- 500 microseconds UTC has -2 leap seconds
+PASSED 01-Jan-1973 00:00:00.000 +/- 500 microseconds UTC has 2 leap seconds
+PASSED 31-Dec-1973 23:59:59.000 +/- 500 microseconds UTC has 2 leap seconds
+PASSED 31-Dec-1973 23:59:60.000 +/- 500 microseconds UTC has -3 leap seconds
+PASSED 31-Dec-1974 23:59:60.000 +/- 500 microseconds UTC has -4 leap seconds
+PASSED 31-Dec-1975 23:59:60.000 +/- 500 microseconds UTC has -5 leap seconds
+PASSED 31-Dec-1976 23:59:60.000 +/- 500 microseconds UTC has -6 leap seconds
+PASSED 31-Dec-1977 23:59:60.000 +/- 500 microseconds UTC has -7 leap seconds
+PASSED 31-Dec-1978 23:59:60.000 +/- 500 microseconds UTC has -8 leap seconds
+PASSED 31-Dec-1979 23:59:60.000 +/- 500 microseconds UTC has -9 leap seconds
+PASSED 30-Jun-1981 23:59:60.000 +/- 500 microseconds UTC has -10 leap seconds
+PASSED 30-Jun-1982 23:59:60.000 +/- 500 microseconds UTC has -11 leap seconds
+PASSED 30-Jun-1983 23:59:60.000 +/- 500 microseconds UTC has -12 leap seconds
+PASSED 30-Jun-1985 23:59:60.000 +/- 500 microseconds UTC has -13 leap seconds
+PASSED 31-Dec-1987 23:59:60.000 +/- 500 microseconds UTC has -14 leap seconds
+PASSED 31-Dec-1989 23:59:60.000 +/- 500 microseconds UTC has -15 leap seconds
+PASSED 31-Dec-1990 23:59:60.000 +/- 500 microseconds UTC has -16 leap seconds
+PASSED 30-Jun-1992 23:59:60.000 +/- 500 microseconds UTC has -17 leap seconds
+PASSED 30-Jun-1993 23:59:60.000 +/- 500 microseconds UTC has -18 leap seconds
+PASSED 30-Jun-1994 23:59:60.000 +/- 500 microseconds UTC has -19 leap seconds
+PASSED 31-Dec-1995 23:59:60.000 +/- 500 microseconds UTC has -20 leap seconds
+PASSED 30-Jun-1997 23:59:60.000 +/- 500 microseconds UTC has -21 leap seconds
+PASSED 31-Dec-1998 23:59:60.000 +/- 500 microseconds UTC has -22 leap seconds
+PASSED 31-Dec-2005 23:59:60.000 +/- 500 microseconds UTC has -23 leap seconds
+PASSED 31-Dec-2008 23:59:60.000 +/- 500 microseconds UTC has -24 leap seconds
+PASSED 30-Jun-2012 23:59:60.000 +/- 500 microseconds UTC has -25 leap seconds
+PASSED 30-Jun-2015 23:59:60.000 +/- 500 microseconds UTC has -26 leap seconds
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.000000500 000000200 +/- 0.5 attosecond UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.000000500 00000020 +/- 5 attoseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.000000500 0000002 +/- 50 attoseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.000000500 000000 +/- 500 attoseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.000000500 00000 +/- 5 femtoseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.000000500 0000 +/- 50 femtoseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.000000500 000 +/- 500 femtoseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.000000500 00 +/- 5 picoseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.000000500 0 +/- 50 picoseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.000000500 +/- 500 picoseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.00000050 +/- 5 nanoseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.0000005 +/- 50 nanoseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.000000 +/- 500 nanoseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.00000 +/- 5 microseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.0000 +/- 50 microseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.000 +/- 500 microseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.00 +/- 5 milliseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15.0 +/- 50 milliseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13:15 +/- 500 milliseconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12:13 +/- 30 seconds UTC
+PASSED 12-Jan-13,123,456,790 BCE 12h +/- 30 minutes UTC
+PASSED 12-Jan-13,123,456,790 BCE +/- 12 hours UTC
+PASSED 100,000,000,000.000 000 000 000 000 200  isLessTicks64 100,000,000,000.000 000 000 000 000 201
+PASSED 100,000,000,200.000 000 000 000 000 000 !isEqualTicks64 100,000,000,201.000 000 000 000 000 000
+PASSED 100,000,000,000.000 000 000 000 000 200  isEqualTicks64 100,000,000,000.000 000 000 000 000 200
+PASSED 100,000,000,202.000 000 000 000 000 000  isGreaterTicks64 100,000,000,200.000 000 000 000 000 000
+PASSED 100,000,000,200.000 000 300 000 000 000 !isEqualTicks32 100,000,000,200.000 000 300 000 000 001
+PASSED 100,000,000,200.000 000 300 000 000 000  isLessTicks32 100,000,000,200.000 000 300 000 000 001
+PASSED 100,000,000,200.000 000 300 000 000 000 !isGreaterTicks32 100,000,000,200.000 000 300 000 000 001
+PASSED 100,000,000,200.000 000 300 000 000 001  isGreaterTicks32 100,000,000,200.000 000 300 000 000 000
+PASSED 100,000,000,200.000 000 300 000 000 400  isEqualTicks 100,000,000,200.000 000 300 000 000 400
+PASSED 100,000,000,200.000 000 300 000 000 400  isLessTicks 100,000,000,200.000 000 301 000 000 400
+PASSED 101,000,000,200.000 000 300 000 000 400  isGreaterTicks 100,000,000,200.000 000 300 000 000 400
+PASSED 101,000,000,200.000 000 300 000 000 400  isNotEqualTicks 100,000,000,200.000 000 300 000 000 400
+PASSED 101,000,000,200.000 000 300 000 000 400  isGreaterOrEqualTicks 100,000,000,200.000 000 300 000 000 400
+PASSED 101,000,000,200.000 000 300 000 000 400 !isLessOrEqualTicks 100,000,000,200.000 000 300 000 000 400
+PASSED 101,000,000,000.000 000 000 000 000 201 diffTicks64 100,000,000,000.000 000 000 000 000 200 = 1,000,000,000.000 000 000 000 000 001
+PASSED 100,000,000,000.000 000 000 000 000 200 diffTicks64 101,000,000,000.000 000 000 000 000 201 = -1,000,000,000.000 000 000 000 000 001
+PASSED 101,000,000,000.000 000 000 000 000 201 diffTicks32 100,000,000,000.000 000 000 000 000 200 = 1,000,000,000.000 000 000 000 000 001
+PASSED 100,000,000,000.000 000 000 000 000 200 diffTicks32 101,000,000,000.000 000 000 000 000 201 = -1,000,000,000.000 000 000 000 000 001
+PASSED 101,000,000,000.000 000 000 000 000 201 diffTicks 100,000,000,000.000 000 000 000 000 200 = 1,000,000,000.000 000 000 000 000 001
+PASSED 100,000,000,000.000 000 000 000 000 200 diffTicks 101,000,000,000.000 000 000 000 000 201 = -1,000,000,000.000 000 000 000 000 001
+PASSED 1,410,065,408,000,000,001.000 000 000 000 000 004  isGreaterTicks 1,410,065,408,000,000,001.000 000 000 000 000 003
+PASSED 1,410,065,408,000,000,001.000 000 000 000 000 004 diffTicks 1,410,065,408,000,000,001.000 000 000 000 000 003 = 0.000 000 000 000 000 001
+PASSED 1,410,065,408,000,000,001.000 000 000 000 000 004 diffTicks 1,410,065,408,000,000,001.000 000 000 000 000 005 = -0.000 000 000 000 000 001
+PASSED 100,000,000,000.000 000 000 000 000 200 addRelTicksToTicks64 50.000 000 000 000 000 010 = 100,000,000,050.000 000 000 000 000 210
+PASSED 100,000,000,000.000 000 000 000 000 200 addRelTicksToTicks64 -200,000,000,050.000 000 000 000 000 010 = 0.000 000 000 000 000 000
+PASSED 100,000,000,000.000 000 000 000 000 200 addRelTicksToTicks64 -100,000,000,000.000 000 000 000 000 000 = 0.000 000 000 000 000 200
+PASSED 0.999 999 999 999 999 999 addRelTicksToTicks64 0.000 000 000 000 000 001 = 1.000 000 000 000 000 000
+PASSED 0.999 999 999 999 999 999 addRelTicksToTicks64 -0.000 000 000 000 000 001 = 0.999 999 999 999 999 998
+PASSED 100,000,000,000.000 000 000 000 000 200 addRelTicksToTicks32 50.000 000 000 000 000 010 = 100,000,000,050.000 000 000 000 000 210
+PASSED 100,000,000,000.000 000 000 000 000 200 addRelTicksToTicks32 -200,000,000,050.000 000 000 000 000 010 = 0.000 000 000 000 000 000
+PASSED 100,000,000,000.000 000 000 000 000 200 addRelTicksToTicks32 -100,000,000,000.000 000 000 000 000 000 = 0.000 000 000 000 000 200
+PASSED 0.999 999 999 999 999 999 addRelTicksToTicks32 0.000 000 000 000 000 001 = 1.000 000 000 000 000 000
+PASSED 999,999,999.999 999 999 999 999 999 addRelTicksToTicks32 0.000 000 000 000 000 001 = 1,000,000,000.000 000 000 000 000 000
+PASSED 0.999 999 999 999 999 999 addRelTicksToTicks32 -0.000 000 000 000 000 001 = 0.999 999 999 999 999 998
+PASSED 100,000,000,000.000 000 000 000 000 200 addRelTicksToTicks 50.000 000 000 000 000 010 = 100,000,000,050.000 000 000 000 000 210
+PASSED 100,000,000,000.000 000 000 000 000 200 addRelTicksToTicks -200,000,000,050.000 000 000 000 000 010 = 0.000 000 000 000 000 000
+PASSED 100,000,000,000.000 000 000 000 000 200 addRelTicksToTicks -100,000,000,000.000 000 000 000 000 000 = 0.000 000 000 000 000 200
+PASSED 0.999 999 999 999 999 999 addRelTicksToTicks 0.000 000 000 000 000 001 = 1.000 000 000 000 000 000
+PASSED 999,999,999.999 999 999 999 999 999 addRelTicksToTicks 0.000 000 000 000 000 001 = 1,000,000,000.000 000 000 000 000 000
+PASSED 0.999 999 999 999 999 999 addRelTicksToTicks -0.000 000 000 000 000 001 = 0.999 999 999 999 999 998
+PASSED 100,000,000,200.000 000 300 000 000 400 negateRelTicks64 = -100,000,000,200.000 000 300 000 000 400
+PASSED -100,000,000,200.000 000 300 000 000 400 negateRelTicks64 = 100,000,000,200.000 000 300 000 000 400
+PASSED 100,000,000,200.000 000 300 000 000 400 negateRelTicks32 = -100,000,000,200.000 000 300 000 000 400
+PASSED -100,000,000,200.000 000 300 000 000 400 negateRelTicks32 = 100,000,000,200.000 000 300 000 000 400
+PASSED 100,000,000,200.000 000 300 000 000 400 negateRelTicks = -100,000,000,200.000 000 300 000 000 400
+PASSED -100,000,000,200.000 000 300 000 000 400 negateRelTicks = 100,000,000,200.000 000 300 000 000 400
+PASSED 100,000,000,000.000 000 000 000 000 200 subtractRelTicksFromTicks64 -50.000 000 000 000 000 010 = 100,000,000,050.000 000 000 000 000 210
+PASSED 100,000,000,000.000 000 000 000 000 200 subtractRelTicksFromTicks64 200,000,000,050.000 000 000 000 000 010 = 0.000 000 000 000 000 000
+PASSED 100,000,000,000.000 000 000 000 000 200 subtractRelTicksFromTicks64 100,000,000,000.000 000 000 000 000 000 = 0.000 000 000 000 000 200
+PASSED 0.999 999 999 999 999 999 subtractRelTicksFromTicks64 -0.000 000 000 000 000 001 = 1.000 000 000 000 000 000
+PASSED 0.999 999 999 999 999 999 subtractRelTicksFromTicks64 0.000 000 000 000 000 001 = 0.999 999 999 999 999 998
+PASSED 100,000,000,000.000 000 000 000 000 200 subtractRelTicksFromTicks32 -50.000 000 000 000 000 010 = 100,000,000,050.000 000 000 000 000 210
+PASSED 100,000,000,000.000 000 000 000 000 200 subtractRelTicksFromTicks32 200,000,000,050.000 000 000 000 000 010 = 0.000 000 000 000 000 000
+PASSED 100,000,000,000.000 000 000 000 000 200 subtractRelTicksFromTicks32 100,000,000,000.000 000 000 000 000 000 = 0.000 000 000 000 000 200
+PASSED 0.999 999 999 999 999 999 subtractRelTicksFromTicks32 -0.000 000 000 000 000 001 = 1.000 000 000 000 000 000
+PASSED 999,999,999.999 999 999 999 999 999 subtractRelTicksFromTicks32 -0.000 000 000 000 000 001 = 1,000,000,000.000 000 000 000 000 000
+PASSED 0.999 999 999 999 999 999 subtractRelTicksFromTicks32 0.000 000 000 000 000 001 = 0.999 999 999 999 999 998
+PASSED 100,000,000,000.000 000 000 000 000 200 subtractRelTicksFromTicks -50.000 000 000 000 000 010 = 100,000,000,050.000 000 000 000 000 210
+PASSED 100,000,000,000.000 000 000 000 000 200 subtractRelTicksFromTicks 200,000,000,050.000 000 000 000 000 010 = 0.000 000 000 000 000 000
+PASSED 100,000,000,000.000 000 000 000 000 200 subtractRelTicksFromTicks 100,000,000,000.000 000 000 000 000 000 = 0.000 000 000 000 000 200
+PASSED 0.999 999 999 999 999 999 subtractRelTicksFromTicks -0.000 000 000 000 000 001 = 1.000 000 000 000 000 000
+PASSED 999,999,999.999 999 999 999 999 999 subtractRelTicksFromTicks -0.000 000 000 000 000 001 = 1,000,000,000.000 000 000 000 000 000
+PASSED 0.999 999 999 999 999 999 subtractRelTicksFromTicks 0.000 000 000 000 000 001 = 0.999 999 999 999 999 998
+PASSED 15-Oct-1582 12:00:00.00000 +/- 5 microseconds UTC = Julian day: 2299161
+PASSED 01-Jan-1600 12:00:00.00000 +/- 5 microseconds UTC = Julian day: 2305448
+PASSED 01-Mar-1600 12:00:00.00000 +/- 5 microseconds UTC = Julian day: 2305508
+PASSED 01-Jan-1900 12:00:00.00000 +/- 5 microseconds UTC = Julian day: 2415021
+PASSED 01-Mar-1900 12:00:00.00000 +/- 5 microseconds UTC = Julian day: 2415080
+PASSED 01-Jan-1904 12:00:00.00000 +/- 5 microseconds UTC = Julian day: 2416481
+PASSED 01-Mar-1904 12:00:00.00000 +/- 5 microseconds UTC = Julian day: 2416541
+PASSED 31-Dec-1957 12:00:00.00000 +/- 5 microseconds UTC = Julian day: 2436204
+PASSED 01-Jan-4713 BCE 12:00:00.00000 +/- 5 microseconds UTC = Julian day: 0
+PASSED 05-May-10 BCE 12:00:00.00000 +/- 5 microseconds UTC = Julian day: 1717895
+PASSED 31-Dec-1960 12:00:00.00000 +/- 5 microseconds UTC = Julian day: 2437300
+PASSED 15-Oct-1582 12:00:00.00000 +/- 5 microseconds Universal Julian = Julian day: 2299171
+PASSED 04-Oct-1582 12:00:00.00000 +/- 5 microseconds UTC = Julian day: 2299160
+PASSED 05-Oct-1582 12:00:00.00000 +/- 5 microseconds Universal Julian = Julian day: 2299161
+PASSED 01-Jan-1600 12:00:00.00000 +/- 5 microseconds Universal Julian = Julian day: 2305458
+PASSED 01-Mar-1600 12:00:00.00000 +/- 5 microseconds Universal Julian = Julian day: 2305518
+PASSED 01-Jan-1900 12:00:00.00000 +/- 5 microseconds Universal Julian = Julian day: 2415033
+PASSED 01-Mar-1900 12:00:00.00000 +/- 5 microseconds Universal Julian = Julian day: 2415093
+PASSED 01-Jan-1904 12:00:00.00000 +/- 5 microseconds Universal Julian = Julian day: 2416494
+PASSED 01-Mar-1904 12:00:00.00000 +/- 5 microseconds Universal Julian = Julian day: 2416554
+PASSED 31-Dec-1958 12:00:00.00000 +/- 5 microseconds Universal Julian = Julian day: 2436582
+PASSED The first Friday of Jun-2016 after 1 is 3. [Recent date with no offset]
+PASSED The first Friday of Jun-2016 after 3 is 3. [Recent date with offset]
+PASSED The last Friday of Jun-2016 is 24. [Recent date with Last specifier]
+PASSED The last Thursday of Dec-13,826,151,189 BCE is 25. [Creation date as Last Thursday]
+PASSED The fourth Thursday of Dec-13,826,151,189 BCE after 1 is 0. [Creation date as 4th Thursday]
+PASSED The last Friday of Dec-13,826,151,189 BCE is 26. [Friday of creation week]
+PASSED The last Sunday of Dec-13,826,151,189 BCE is 28. [Sunday of creation week]
+PASSED The last Wednesday of Dec-13,826,151,189 BCE is 31. [Wednesday of creation week]
+PASSED The first Monday of Oct-1582 after 1 is 1. [First Monday in October 1582]
+PASSED The second Monday of Oct-1582 after 1 is 18. [Second Monday in October 1582]
+PASSED When the last Julian date is 15821004, the first Gregorian date is 10/15/1582. [Earliest transition to Gregorian]
+PASSED When the last Julian date is 15821005, the first Gregorian date is 10/16/1582. [Earliest transition to Gregorian + 1]
+PASSED When the last Julian date is 16000101, the first Gregorian date is 01/12/1600. [Beginning of 1600]
+PASSED When the last Julian date is 17000227, the first Gregorian date is 03/10/1700. [Just before increase to 11 days]
+PASSED When the last Julian date is 17000228, the first Gregorian date is 03/11/1700. [Just before increase to 11 days]
+PASSED When the last Julian date is 17000229, the first Gregorian date is 03/12/1700. [Day when transition to 11 days takes place]
+PASSED When the last Julian date is 17000301, the first Gregorian date is 03/13/1700. [Day after transition to 11 days takes place]
+PASSED When the last Julian date is 18000228, the first Gregorian date is 03/12/1800. [Just before increase to 12 days]
+PASSED When the last Julian date is 18000229, the first Gregorian date is 03/13/1800. [Day when transition to 12 days takes place]
+PASSED When the last Julian date is 18000301, the first Gregorian date is 03/14/1800. [Day after transition to 12 days takes place]
+PASSED When the last Julian date is 19000228, the first Gregorian date is 03/13/1900. [Just before increase to 13 days]
+PASSED When the last Julian date is 19000229, the first Gregorian date is 03/14/1900. [Day when transition to 13 days takes place]
+PASSED When the last Julian date is 19000301, the first Gregorian date is 03/15/1900. [Day after transition to 13 days takes place]
