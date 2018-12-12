@@ -155,10 +155,30 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Documents\Approximate operators.docx" />
+    <None Include="..\..\Documents\Calendar changes.docx" />
+    <None Include="..\..\Documents\Comparison operators for values with uncertainties.xlsx" />
+    <None Include="..\..\Documents\Construction of Time Zones.docx" />
+    <None Include="..\..\Documents\Datetime and Related Data Types.docx" />
+    <None Include="..\..\Documents\Implementation of upgrades for UTCDatetime and TAIRelDatetime creation.xlsx" />
+    <None Include="..\..\Documents\Mapping of Negative Years to BCE Years.xlsx" />
+    <None Include="..\..\Documents\Offset Definitions and Calculations.xlsx" />
+    <None Include="..\..\Documents\Strategy for Converting Local Datetimes to UTC Datetimes.docx" />
+    <None Include="..\..\Documents\Tasks.docx" />
+    <None Include="..\..\Documents\Tenets of Precision and Uncertainty.docx" />
+    <None Include="..\..\Documents\Time parameters.xlsx" />
+    <None Include="..\..\Documents\Uncertainty Limits vs Precision.xlsx" />
+    <None Include="..\..\Documents\Upgrading Atom and Julia from 0-6 to 0-7.docx" />
+    <None Include="..\..\Documents\Upgrading from Julia 0-6 to 0-7 or 1-0.docx" />
+    <None Include="..\..\Julia Integration\TZFileReader.jl" />
+    <None Include="..\..\Julia Integration\UltimateDT.jl" />
     <None Include="Configuration Notes.txt" />
     <None Include="datetimetest.input" />
     <None Include="datetimetest.output" />
     <None Include="timezoneperiods.output" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\Documents\Configuration Notes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
