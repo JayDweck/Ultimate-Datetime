@@ -1,0 +1,5 @@
+ccall((:clock, "ucrtbase"), Int32, ())
+ccall((:max, "pwd()\\UltimateDatetimeDLL"), Int32, (Int32, Int32),4,9)
+Libdl.find_library(pwd()"\\UltimateDatetimeDLL")
+ccall((:max,"C:\\Users\\Jay\\UltimateDatetimeDLL"), Int32, (Int32, Int32),4,9)
+ccall((:max,"UltimateDatetimeDLL"), Int32, (Int32, Int32),4,9)

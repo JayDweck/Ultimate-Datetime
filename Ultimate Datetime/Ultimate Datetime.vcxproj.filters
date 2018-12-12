@@ -20,9 +20,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Configuration Notes.txt">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="datetimetest.input">
       <Filter>Resource Files</Filter>
     </None>
@@ -32,61 +29,11 @@
     <None Include="timezoneperiods.output">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\..\Julia Integration\TZFileReader.jl">
+    <None Include="..\Documents\Upgrading Atom and Julia from 0-6 to 0-7.docx">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\..\Julia Integration\UltimateDT.jl">
+    <None Include="..\Julia Integration\testDict.jl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="..\..\Documents\Approximate operators.docx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Documents\Calendar changes.docx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Documents\Comparison operators for values with uncertainties.xlsx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Documents\Construction of Time Zones.docx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Documents\Datetime and Related Data Types.docx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Documents\Implementation of upgrades for UTCDatetime and TAIRelDatetime creation.xlsx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Documents\Mapping of Negative Years to BCE Years.xlsx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Documents\Offset Definitions and Calculations.xlsx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Documents\Strategy for Converting Local Datetimes to UTC Datetimes.docx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Documents\Tasks.docx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Documents\Tenets of Precision and Uncertainty.docx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Documents\Time parameters.xlsx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Documents\Uncertainty Limits vs Precision.xlsx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Documents\Upgrading Atom and Julia from 0-6 to 0-7.docx">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\..\Documents\Upgrading from Julia 0-6 to 0-7 or 1-0.docx">
-      <Filter>Resource Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\..\Documents\Configuration Notes.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>

@@ -1,0 +1,10 @@
+Write lastJulianCoords(calendar, timezone, frame) - midnight of the next day in wall
+Write firstGregorianCoords - midnight of the day
+Any functions that use the above 2 that are in UlimateDatetime need to move to LocalDatetime
+Integrate the above, replacing calls to lastJulianDay and firstGregorianDay, respectively
+Revisit offsetLocalCalCoords and offsetLocalCalCoordsDT as far as calendar manipulation
+Treat UTCDatetime as all frames of reference are equal
+Write the comparison functions for uncertain datatypes
+Integrate the above into Julia using the operators in the Comparison operators for values with uncertainties spreadsheet
+Add precision, uncertainty and ticks to LocalCalCoordsDT - needed to process uncertainty comparisons
+Finish LocalDatetime

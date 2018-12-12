@@ -1,0 +1,83 @@
+This solution originally was created as a single project with a single c file, main.c.
+
+In order to make the datatype available to other languages and to produce production
+code, the datatype was changed to a .dll and put into a separate project.  This
+was done by using File -> Add New Project, while the solution is selected in
+the Solution Explorer.  The project for the DLL is a Win32 project with
+applicaton type DLL and Empty Project checked.  The source files that are
+created must of type .c to invoke the C compiler instead of the C++ compiler.
+The project for the EXE is also a Win32 project with application type
+Console application and Empty Project checked.
+
+The source file containing the library code was put into a file named
+UltimateDatetime.c.  UltimateDatetime.h was also created, containing the
+declarations for the function and the typedefs for the structs.  In order
+for these functions to be accessible outside the libraries, __declspec(dllexport) 
+must be added before each function declaration.
+
+The .h file has all of the includes. Remove the includes from the .c file
+and add #include "..\UltimateDatetimeDLL\UltimateDatetime.h".
+
+Make the Ultimate Datetime Test project dependent on the UltimateDatetimeDLL
+project by selecting the solution from the solution explorer then selecting
+Project -> Properties.
+
+To use the dll from the test project, select the test project in the
+solution explorer then select Project -> References.  Select Add New
+Reference then select the UltimateDatetimeDLL project.
+
+Added TZ Database as a new project.  The project is a Win32 project with
+application type Console application and Empty Project checked.  The
+source files are of type .c to invoke the C compiler instead of the C++
+compiler.  The files were taken from the tar file for the time zone
+database.
+
+In order to make TZ Database (aka zic) work as a Visual Studio project,
+a number of changes are required:
+
+1. The makefile creates a header called version.h.  As we are not
+running this makefile, comment out version.h and establish the
+values of PKGVERSION, TZVERSION and REPORT_BUGS_TO in zic.c.
+
+2. In order to debug the application, the application needs to
+be the Startup Project.  Select the Solution in the Solution
+Explorer, then select Project -> Properties.  Set TZ Database as
+the single startup project.
+
+3. In order to debug the application, we need to provide command
+line arguments.  This is done by right-clicking the project, then
+selecting properties.  In the Properties page, under Configuration
+Properties, select Debugging.  Add appropriate text to Command
+Arguments.
+
+4. In order to debug the application, an input file is required.
+By default, this file is assumed to be in the Project working
+directory, which is where the source files are also stored.
+
+5. This is a unix application, which uses a number of facilities
+not available to Windows apps without employing third party
+software like Cygwin.  Modify the code as follows:
+	a. In private.h, change HAVE_SYMLINK and
+		HAVE_UNISTD_H from 1 to 0.
+	b. Many of the memory management functions return void *.
+		To make these compile, need to cast them to the
+		appropriate type.
+
+Added TZ Localtime as a new project.  The project is a Win32
+project with application type DLL and Empty Project checked.
+Required 2 C sources files - localtime.c and asctime.c.
+
+5 functions in these 2 files have the same names as functions
+in the Windows libraries - gmtime, localtime, mktime, asctime and ctime.
+Renamed those functions to tZgmtime, etc.
+
+Set NETBSD_INSPIRED to 1 in private.h to create functions and types necessary.
+
+ssize_t is undefined.  Correct as follows:
+#include <BaseTsd.h>
+typedef SSIZE_T ssize_t;
+
+
+To use this dll from the test project, select the test project in
+the solution explorer then select Project -> References.  Select Add New
+Reference then select the TZ Localtime project.
