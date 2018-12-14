@@ -1,6 +1,6 @@
 //#include "../UltimateDatetimeDLL/UltimateDatetime.h"
 #include "../LocalDatetimeDLL/LocalDatetime.h"
-#include "../../TZ Database/TZ Database/private.h"
+#include "private.h"
 #include <time.h>
 int main(void)
 {

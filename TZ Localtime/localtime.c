@@ -11,8 +11,8 @@
 /*LINTLIBRARY*/
 
 #define LOCALTIME_IMPLEMENTATION
-#include "../../TZ Database/TZ Database/private.h"
-#include "../../TZ Database/TZ Database/tzfile.h"
+#include "../Ultimate Datetime/private.h"
+#include "../Ultimate Datetime/tzfile.h"
 #include <fcntl.h>
 
 /* Required for open, close, access functions on Windows */

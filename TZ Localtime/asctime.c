@@ -11,8 +11,8 @@
 
 /*LINTLIBRARY*/
 
-#include "../../TZ Database/TZ Database/private.h"
-#include "../../TZ Database/TZ Database/tzfile.h"
+#include "../Ultimate Datetime/private.h"
+#include "../Ultimate Datetime/tzfile.h"
 
 /*
 ** Some systems only handle "%.2d"; others only handle "%02d";
