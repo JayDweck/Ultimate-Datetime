@@ -161,6 +161,10 @@
     <None Include="datetimetest.output" />
     <None Include="timezoneperiods.output" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="private.h" />
+    <ClInclude Include="tzfile.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
