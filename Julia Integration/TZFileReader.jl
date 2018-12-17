@@ -1,4 +1,4 @@
-# Script to read time zone files and create C header files defining the rules and time zones
+# Script to read IANA time zone files and create C header files defining the rules and time zones
 module FileProcessor # Clears definitions
 # The following is necessary to overload the operators for the new datatypes
 using Base

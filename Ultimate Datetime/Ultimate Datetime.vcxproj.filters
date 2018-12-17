@@ -35,6 +35,12 @@
     <None Include="..\Julia Integration\testDict.jl">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="..\Julia Integration\TZFileReader.jl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Julia Integration\UltimateDT.jl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="private.h">

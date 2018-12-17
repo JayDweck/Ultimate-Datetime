@@ -157,6 +157,8 @@
   <ItemGroup>
     <None Include="..\Documents\Upgrading Atom and Julia from 0-6 to 0-7.docx" />
     <None Include="..\Julia Integration\testDict.jl" />
+    <None Include="..\Julia Integration\TZFileReader.jl" />
+    <None Include="..\Julia Integration\UltimateDT.jl" />
     <None Include="datetimetest.input" />
     <None Include="datetimetest.output" />
     <None Include="timezoneperiods.output" />

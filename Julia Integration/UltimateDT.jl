@@ -29,7 +29,7 @@ elseif isdir("/Volumes")
   LocLib = Libdl.dlopen("/Volumes/Shared/Ultimate Datetime Datatype/Ultimate Datetime/Debug/libLocalDatetimeDLL")
 end
 # Define datatypes
-# Tick count from epoch either uses 2 @ 64-bit unsigned integers or 4 @ 32-bit integers
+# Tick count from epoch either uses 2 @ 64-bit unsigned integers or 4 @ 32-bit unsighed integers
 #   based on how UltimateDatetimeDLL was built
 numTickBits = ccall(Libdl.dlsym(UDTLib,:getTickBits), Int, ())
 maxTZNameLength = ccall(Libdl.dlsym(LocLib,:getMaxTZNameLength), Int, ())
