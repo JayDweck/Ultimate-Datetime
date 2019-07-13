@@ -657,7 +657,7 @@ function *(x::UncertainFloat64, y::UncertainFloat64)
                     (UncertainFloat64, UncertainFloat64),x,y))
 end
 # Divide 2 UncertainDoubles
-function /(x::UncertainFloat64, y::UncertainFloat64)
+function Base.:/(x::UncertainFloat64, y::UncertainFloat64)
     return (ccall(Libdl.dlsym(UDTLib, :divideUncertainDoubles), UncertainFloat64,
                     (UncertainFloat64, UncertainFloat64),x,y))
 end
@@ -680,7 +680,7 @@ function *(x::TAIRelDatetime, y::Float64)
     return y * x
 end
 # Divide a TAIRelDatetime by a TAIRelDatetime
-function /(x::TAIRelDatetime, y::TAIRelDatetime)
+function Base.:/(x::TAIRelDatetime, y::TAIRelDatetime)
     return (ccall(Libdl.dlsym(UDTLib, :ratioRelDatetimes), UncertainFloat64,
                     (TAIRelDatetime, TAIRelDatetime),x,y))
 end
