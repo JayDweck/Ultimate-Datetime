@@ -81,3 +81,9 @@ typedef SSIZE_T ssize_t;
 To use this dll from the test project, select the test project in
 the solution explorer then select Project -> References.  Select Add New
 Reference then select the TZ Localtime project.
+
+6. In order to be usable from Julia, the DLLs must be built for the x64 platform, not the win32
+platform.  To accomplish this, from Visual Studio, go to the solution explorer.  Right-click on
+the solution and select Properties.  Under Configuration Properties, click Configuation.  Set all
+Platforms to x64.  Then click the Configuration Manager Button and do the same for all projects.
+Also, in the Configuration column, select Debug instead of Release if Debug versions are desired.
