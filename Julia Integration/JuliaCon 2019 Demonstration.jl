@@ -38,4 +38,18 @@ push!(code,CodeFragment("Create uf2 as an exact value",:(uf2 = UncertainFloat64(
 push!(code,CodeFragment("Multiply the 2 values.  Uf1 is only contributor to p and u.",:(uf1 * uf2)))
 # Compare with integber result
 push!(code,CodeFragment("Multiply an uncertain value by an integer.  Uf1 is only contributor to p and u.",:(4 * uf1)))
-map(demo_code, code);  # Semicolon suppresses output from this command
+# Zero values require special handling
+push!(code,CodeFragment("Zero value with an uncertainty of 1.",:(uf1 = UncertainFloat64(0,p=1,u=1))))
+push!(code,CodeFragment("Zero value with an uncertainty of 1 billion",:(uf2 = UncertainFloat64(0,p=1e9,u=1))))
+push!(code,CodeFragment("Non-zero value with a 90% uncertainty",:(uf3 = UncertainFloat64(10.,p=1,u=9))))
+push!(code,CodeFragment("Multiplication multiplies the uncertainty by the largest possible value of the other factor.",:(uf3 * uf1)))
+push!(code,CodeFragment("Division increases the uncertainty by (1 + fractional uncertainty of the denominator).",:(uf2 / uf3)))
+# **** Comparisons ***
+# Demonstrate that relative time is different from UTCDatetime
+push!(code,CodeFragment("Create a UTCDatetime with default precision and uncertainty.",:(utc1 = UTCDatetime(y=2019,m=7,d=23,h=11,min=45))))
+push!(code,CodeFragment("Create a 2nd UTCDatetime with default precision and uncertainty.",:(utc2 = UTCDatetime(y=2019,m=7,d=23,h=10,min=45))))
+push!(code,CodeFragment("Subtract the 2 UTCDatetimes to produce a relative datetime.",:(rel1 = utc1 - utc2)))
+push!(code,CodeFragment("Relative datetimes can be positive or negative.",:(rel2 = utc2 - utc1)))
+# *** Leap seconds ***
+map(demo_code, code)
+nothing
