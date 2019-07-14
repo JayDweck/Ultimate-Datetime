@@ -8,6 +8,7 @@ using Libdl
 import Base: ==, !=, >, <, >=, <=, +, -, >>>, >>, <<
 import Base.show
 import Base.*
+import Base.promote_rule  # Need to import this to add promotoe_rules
 export ==′, !=′, ==″, !=″, ==‴, !=‴, >′, >″, >=′, >=″, <′, <″, <=′, <=″
 export TAITicks, TAIRelTicks, UTCDatetime, TAIRelDatetime, UncertainFloat64, DateCoords
 export UTCOffset, UTCDatetime, CalCoords, LocalCalCoordsDT
@@ -17,8 +18,8 @@ export showDatetime, translate
 # Open preferentially on the Z: drive, which will be the case when working at home
 # UDTLib = Libdl.dlopen("W:\\Shared\\Users\\Jay\\Ultimate Datetime Datatype\\Ultimate Datetime\\x64\\Debug\\UltimateDatetimeDLL")
 if isdir("Z:")
-  UDTLib = Libdl.dlopen("Z:\\Ultimate Datetime Datatype\\Ultimate Datetime\\x64\\Debug\\UltimateDatetimeDLL")
-  LocLib = Libdl.dlopen("Z:\\Ultimate Datetime Datatype\\Ultimate Datetime\\x64\\Debug\\LocalDatetimeDLL")
+  UDTLib = Libdl.dlopen("Z:\\Ultimate Datetime Datatype\\Ultimate Datetime Git\\Ultimate-Datetime\\x64\\Debug\\UltimateDatetimeDLL")
+  LocLib = Libdl.dlopen("Z:\\Ultimate Datetime Datatype\\Ultimate Datetime Git\\Ultimate-Datetime\\x64\\Debug\\LocalDatetimeDLL")
 # Check for local directory on Windows machine
 elseif isdir("C:")
   UDTLib = Libdl.dlopen("C:\\Users\\jay\\Documents\\Ultimate Datetime Datatype\\Ultimate Datetime\\x64\\Debug\\UltimateDatetimeDLL")
@@ -29,7 +30,7 @@ elseif isdir("/Volumes")
   LocLib = Libdl.dlopen("/Volumes/Shared/Ultimate Datetime Datatype/Ultimate Datetime/Debug/libLocalDatetimeDLL")
 end
 # Define datatypes
-# Tick count from epoch either uses 2 @ 64-bit unsigned integers or 4 @ 32-bit unsighed integers
+# Tick count from epoch either uses 2 @ 64-bit unsigned integers or 4 @ 32-bit unsigned integers
 #   based on how UltimateDatetimeDLL was built
 numTickBits = ccall(Libdl.dlsym(UDTLib,:getTickBits), Int, ())
 maxTZNameLength = ccall(Libdl.dlsym(LocLib,:getMaxTZNameLength), Int, ())
