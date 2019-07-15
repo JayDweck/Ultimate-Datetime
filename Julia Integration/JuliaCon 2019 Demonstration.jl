@@ -11,9 +11,11 @@ struct CodeFragment
 end
 # Create a function to describe then demonstrate a code fragment
 function demo_code(codeFragment::CodeFragment)
-    printstyled(stdout, " *** ", codeFragment.description, " ***\n", bold=true, color=:light_green)
+    printstyled(stdout, "\n *** ", codeFragment.description, " ***\n", bold=true, color=:light_green)
     print(stdout, string(codeFragment.expression), "  ")
-    printstyled(stdout, eval(codeFragment.expression), "\n", color=:light_cyan)
+    if eval(codeFragment.expression) != nothing
+        printstyled(stdout, eval(codeFragment.expression), color=:light_cyan)
+    end
     readline() # Wait for a carraige return
     nothing
 end
@@ -51,5 +53,9 @@ push!(code,CodeFragment("Create a 2nd UTCDatetime with default precision and unc
 push!(code,CodeFragment("Subtract the 2 UTCDatetimes to produce a relative datetime.",:(rel1 = utc1 - utc2)))
 push!(code,CodeFragment("Relative datetimes can be positive or negative.",:(rel2 = utc2 - utc1)))
 # *** Leap seconds ***
+# UTC Datetime Formatting
+push!(code,CodeFragment("Formatting is automatic based on precision.",
+    :(for i = -18:15;printstyled(stdout,"\n", UTCDatetime(gy=99,y=999999999,m=12,d=31,h=23,min=59,s=59,ns=999999999,as=999999999,p=i,u=1),
+    color=:light_cyan);end)))
 map(demo_code, code)
 nothing
