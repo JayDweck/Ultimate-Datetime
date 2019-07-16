@@ -101,7 +101,7 @@ push!(code,CodeFragment("Zero value with an uncertainty of 1 billion",:(uf2 = Un
 push!(code,CodeFragment("Non-zero value with a 90% uncertainty",:(uf3 = UncertainFloat64(10.,p=1,u=9))))
 push!(code,CodeFragment("Multiplication multiplies the uncertainty by the largest possible value of the other factor.",:(uf3 * uf1)))
 push!(code,CodeFragment("Division increases the uncertainty by (1 + fractional uncertainty of the denominator).",:(uf2 / uf3)))
-# **** Comparisons ***
+# Demonstrate range comparisons
 push!(code,CodeFragment("Range based comparison operators with overlapping values",
     :(boxAndCompare(UncertainFloat64(8.,p=1,u=2),UncertainFloat64(9.,p=1,u=2)))))
 push!(code,CodeFragment("Range based comparison operators with exact values",
