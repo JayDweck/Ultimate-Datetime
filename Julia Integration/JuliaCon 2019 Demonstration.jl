@@ -11,15 +11,70 @@ struct CodeFragment
 end
 # Create a function to describe then demonstrate a code fragment
 function demo_code(codeFragment::CodeFragment)
-    printstyled(stdout, "\n *** ", codeFragment.description, " ***\n", bold=true, color=:light_green)
-    print(stdout, string(codeFragment.expression), "  ")
+    if (codeFragment.description != "")
+        printstyled(stdout, "\n *** ", codeFragment.description, " ***\n", bold=true, color=:light_green)
+    end
+    # The replace functions removes comment lines inserted by the system
+    print(stdout, replace(string(codeFragment.expression), r"#.*#\n" => ""), "  ")
     if eval(codeFragment.expression) != nothing
         printstyled(stdout, eval(codeFragment.expression), color=:light_cyan)
     end
     readline() # Wait for a carraige return
     nothing
 end
-# wait_for_key(prompt) = (print(stdout, prompt); readline(); nothing)
+# Use the Unicode plotting package
+using UnicodePlots
+# Create a function to create the vector of vectors required to generate a boxplot
+#   comparing two UncertainFloat64s.
+function boxCompareUF(uf1::UncertainFloat64, uf2::UncertainFloat64)
+    val1 = uf1.value - uf1.precision*uf1.uncertainty
+    val2 = uf1.value - uf1.precision*uf1.uncertainty
+    val3 = uf1.value
+    val4 = uf1.value + uf1.precision*uf1.uncertainty
+    val5 = uf1.value + uf1.precision*uf1.uncertainty
+    val6 = uf2.value - uf2.precision*uf2.uncertainty
+    val7 = uf2.value - uf2.precision*uf2.uncertainty
+    val8 = uf2.value
+    val9 = uf2.value + uf2.precision*uf2.uncertainty
+    val10 = uf2.value + uf2.precision*uf2.uncertainty
+    return [[val1,val2,val3,val4,val5],[val6,val7,val8,val9,val10]]
+end
+# Create an array with strings for all of the comparison operators
+compops = ["==","!=","==′","!=′","==″","!=″","==‴","!=‴",">","<=″",
+           ">′","<=′",">″","<=",">=","<″",">=′","<′",">=″","<"]
+compopsDesc = ["Must equal", "May not equal", "Has same midpoint as", "Does not have same midpoint as",
+               "May equal", "Cannot equal", "Has same range as", "Does not have same range as",
+               "Must be greater than", "Can be less than or equal to", "Has larger midpoint than",
+               "Has midpoint less than or equal to that of", "Can be greater than", "Must be less than or equal to",
+               "Must be greater than or equal to", "Can be less than", "Has midpoint greater than or equal to that of",
+               "Has smaller midpoint than", "Can be greater than or equal to", "Must be less than"
+               ]
+#***** Create an array with descriptions of the operators and print them in boxAndCompare
+# Create a function to draw a box plot and display the results of the comparisons
+# uf1 and uf2 need to be in the global scope so that the eval in boxAndCompare receives the proper values
+uf1 = UncertainFloat64(1.,p=1,u=1)
+uf2 = uf1
+function boxAndCompare(uf1t::UncertainFloat64, uf2t::UncertainFloat64)
+    # Need to pass the global variables to eval
+    global uf1 = uf1t
+    global uf2 = uf2t
+    # When used in an expression to be evaluated, boxplot works if it is the last line in
+    #  the expression.  Otherwise, must use show(boxplot).
+    show(boxplot([string(uf1), string(uf2)], boxCompareUF(uf1,uf2), border=:none))
+    print(stdout,"\n")
+    for i = 1:20
+        code = Meta.parse("uf1" * compops[i] * "uf2")
+        print(stdout, "\n", rpad(string(code),11), "   ")
+        printstyled(stdout, rpad(compopsDesc[i],45), "  ", color=:light_green)
+        if (eval(code) == true)
+            printstyled(stdout, eval(code), color=:light_cyan)
+        else
+            printstyled(stdout, eval(code), color=:light_red)
+        end
+    end
+    return nothing
+end
+# Create an array to contain the code fragments
 code = Array{CodeFragment,1}()
 # Uncertain Floats
 # Create an Uncertain Float with default precision and uncertainty
@@ -47,15 +102,29 @@ push!(code,CodeFragment("Non-zero value with a 90% uncertainty",:(uf3 = Uncertai
 push!(code,CodeFragment("Multiplication multiplies the uncertainty by the largest possible value of the other factor.",:(uf3 * uf1)))
 push!(code,CodeFragment("Division increases the uncertainty by (1 + fractional uncertainty of the denominator).",:(uf2 / uf3)))
 # **** Comparisons ***
+push!(code,CodeFragment("Range based comparison operators with overlapping values",
+    :(boxAndCompare(UncertainFloat64(8.,p=1,u=2),UncertainFloat64(9.,p=1,u=2)))))
+push!(code,CodeFragment("Range based comparison operators with exact values",
+    :(boxAndCompare(UncertainFloat64(8,p=1,u=0),UncertainFloat64(8,p=1,u=0)))))
+push!(code,CodeFragment("Range based comparison operators with disjoint values",
+    :(boxAndCompare(UncertainFloat64(5,p=1,u=2),UncertainFloat64(10,p=1,u=2)))))
+push!(code,CodeFragment("Range based comparison operators with a single overlapping value",
+    :(boxAndCompare(UncertainFloat64(5,p=1,u=2),UncertainFloat64(9,p=1,u=2)))))
+push!(code,CodeFragment("Range based comparison operators with the same range",
+    :(boxAndCompare(UncertainFloat64(9,p=1,u=2),UncertainFloat64(9,p=1,u=2)))))
 # Demonstrate that relative time is different from UTCDatetime
-push!(code,CodeFragment("Create a UTCDatetime with default precision and uncertainty.",:(utc1 = UTCDatetime(y=2019,m=7,d=23,h=11,min=45))))
-push!(code,CodeFragment("Create a 2nd UTCDatetime with default precision and uncertainty.",:(utc2 = UTCDatetime(y=2019,m=7,d=23,h=10,min=45))))
+push!(code,CodeFragment("Create a UTCDatetime with default precision and uncertainty.",
+    :(utc1 = UTCDatetime(y=2019,m=7,d=23,h=11,min=45))))
+push!(code,CodeFragment("Create a 2nd UTCDatetime with default precision and uncertainty.",
+    :(utc2 = UTCDatetime(y=2019,m=7,d=23,h=10,min=45))))
 push!(code,CodeFragment("Subtract the 2 UTCDatetimes to produce a relative datetime.",:(rel1 = utc1 - utc2)))
 push!(code,CodeFragment("Relative datetimes can be positive or negative.",:(rel2 = utc2 - utc1)))
 # *** Leap seconds ***
 # UTC Datetime Formatting
 push!(code,CodeFragment("Formatting is automatic based on precision.",
-    :(for i = -18:15;printstyled(stdout,"\n", UTCDatetime(gy=99,y=999999999,m=12,d=31,h=23,min=59,s=59,ns=999999999,as=999999999,p=i,u=1),
-    color=:light_cyan);end)))
+    :(for i = -18:15;
+        utc = UTCDatetime(gy=99,y=999999999,m=12,d=31,h=23,min=59,s=59,ns=999999999,as=999999999,p=i,u=1);
+        printstyled(stdout,"\n", utc,color=:light_cyan);
+      end)))
 map(demo_code, code)
 nothing
