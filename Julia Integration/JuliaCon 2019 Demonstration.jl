@@ -42,6 +42,7 @@ end
 # Create an array with strings for all of the comparison operators
 compops = ["==","!=","==′","!=′","==″","!=″","==‴","!=‴",">","<=″",
            ">′","<=′",">″","<=",">=","<″",">=′","<′",">=″","<"]
+# Create an array with descriptions of the operators and print them in boxAndCompare
 compopsDesc = ["Must equal", "May not equal", "Has same midpoint as", "Does not have same midpoint as",
                "May equal", "Cannot equal", "Has same range as", "Does not have same range as",
                "Must be greater than", "Can be less than or equal to", "Has larger midpoint than",
@@ -49,7 +50,6 @@ compopsDesc = ["Must equal", "May not equal", "Has same midpoint as", "Does not 
                "Must be greater than or equal to", "Can be less than", "Has midpoint greater than or equal to that of",
                "Has smaller midpoint than", "Can be greater than or equal to", "Must be less than"
                ]
-#***** Create an array with descriptions of the operators and print them in boxAndCompare
 # Create a function to draw a box plot and display the results of the comparisons
 # uf1 and uf2 need to be in the global scope so that the eval in boxAndCompare receives the proper values
 uf1 = UncertainFloat64(1.,p=1,u=1)
@@ -119,6 +119,13 @@ push!(code,CodeFragment("Create a 2nd UTCDatetime with default precision and unc
     :(utc2 = UTCDatetime(y=2019,m=7,d=23,h=10,min=45))))
 push!(code,CodeFragment("Subtract the 2 UTCDatetimes to produce a relative datetime.",:(rel1 = utc1 - utc2)))
 push!(code,CodeFragment("Relative datetimes can be positive or negative.",:(rel2 = utc2 - utc1)))
+# Show allowed operations on relative datetimes
+push!(code,CodeFragment("Create a UTCDatetime with nanosecond precision and uncertainty.",
+    :(utc1 = UTCDatetime(y=2019,m=7,d=23,h=11,min=45,p=-9,u=1))))
+push!(code,CodeFragment("Create a 2nd UTCDatetime with nanosecond precision and uncertainty.",
+    :(utc2 = UTCDatetime(y=2019,m=7,d=23,h=10,min=45,p=-9,u=1))))
+push!(code,CodeFragment("Subtract the 2 UTCDatetimes to produce a relative datetime.",:(rel1 = utc1 - utc2)))
+push!(code,CodeFragment("Relative datetimes can be multiplied by integers and floating point numbers.",:(2*rel1 + 1.5*rel1)))
 # *** Leap seconds ***
 # UTC Datetime Formatting
 push!(code,CodeFragment("Formatting is automatic based on precision.",
