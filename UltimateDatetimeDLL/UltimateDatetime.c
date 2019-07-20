@@ -2833,6 +2833,7 @@ const char * asStringTAIRelDatetime (TAIRelDatetime re, char tickElemString[])
 	if (re.precision == 99)
 	{
 		// Not specified
+		maxLeadingElemRemoved = 3;
 		nskip = 0;
 	}
 

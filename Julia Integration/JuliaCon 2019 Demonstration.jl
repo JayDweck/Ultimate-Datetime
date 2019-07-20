@@ -76,6 +76,21 @@ function boxAndCompare(uf1t::UncertainFloat64, uf2t::UncertainFloat64)
 end
 # Create an array to contain the code fragments
 code = Array{CodeFragment,1}()
+# Demonstrate Julian to Gregorian transition
+push!(code,CodeFragment("Create a UTCDatetime just before the earliest transtion to the Gregorian calendar.",
+    :(utcj = UTCDatetime(y=1582,m=10,d=4,h=23,min=0,p=0,u=1))))
+push!(code,CodeFragment("Attempt to create a UTCDatetime during the skipped period.",
+    :(utcs = UTCDatetime(y=1582,m=10,d=5,h=1,min=0,p=0,u=1))))
+push!(code,CodeFragment("Create a UTCDatetime just after the earliest transition to the Gregorian calendar.",
+    :(utcg = UTCDatetime(y=1582,m=10,d=15,h=1,min=0,p=0,u=1))))
+push!(code,CodeFragment("Very little time elapsed between those two dates!",
+    :(utcg - utcj)))
+push!(code,CodeFragment("The Julian calendar continued on - the last country to adopt the Gregorian calendar was Greence in 1923.",
+    :(utcj2 = UTCDatetime(y=1582,m=10,d=5,h=1,min=0,p=0,u=1,c=1))))
+push!(code,CodeFragment("For every Gregorian datetime, there is a corresponding Julian datetime.",
+    :(utcg == utcj2)))
+push!(code,CodeFragment("Sweden has its own, bizarre calendar.",
+    :(UTCDatetime(y=1712,m=2,d=30,h=1,min=0,p=0,u=1,c=2))))
 # Uncertain Floats
 # Create an Uncertain Float with default precision and uncertainty
 push!(code,CodeFragment("Uncertain float with default precision and uncertainty",:(UncertainFloat64(1005.25))))
@@ -126,6 +141,10 @@ push!(code,CodeFragment("Create a 2nd UTCDatetime with nanosecond precision and 
     :(utc2 = UTCDatetime(y=2019,m=7,d=23,h=10,min=45,p=-9,u=1))))
 push!(code,CodeFragment("Subtract the 2 UTCDatetimes to produce a relative datetime.",:(rel1 = utc1 - utc2)))
 push!(code,CodeFragment("Relative datetimes can be multiplied by integers and floating point numbers.",:(2*rel1 + 1.5*rel1)))
+push!(code,CodeFragment("A relative datetime can be divided by another relative datetime.",:( x = rel1 / (2*rel1 + 1.5*rel1))))
+push!(code,CodeFragment("The result of this division is an UncertianFloat64 (which is the original reason the type was created.)!", :(typeof(x))))
+push!(code,CodeFragment("When the UncertainFloat64 is multiplied by the denominator, the precision is restored with the propogated uncertainty.",
+    :(x * (2*rel1 + 1.5*rel1))))
 # *** Leap seconds ***
 # UTC Datetime Formatting
 push!(code,CodeFragment("Formatting is automatic based on precision.",
