@@ -61,7 +61,7 @@ typedef struct
 {
 	/* CalCoords with timezone and frame parameters added. 
 	   This structure is useful for defining the boundaries of the time zone periods,
-	   and as a precursor to a LocalDatetimeDT. */
+	   and as a precursor to a LocalDatetime. */
 	CalCoords cc; /* The calendar coordinates - gigayear through attosecond, plus calendar.*/
 	char timezone[maxTZNameLength]; /* The name of a timezone from the IANA time zone database.
 									It is storage inefficient to use the name, but if it is
@@ -126,7 +126,7 @@ typedef struct
 							One could conceive of a pathological case where a before value
 							in standard frame of reference is actually an after value in
 							wall frame of reference.  This case does not exist in practice
-							and would likely cause problems in other sections of the algorithem.
+							and would likely cause problems in other sections of the algorithm.
 							Thus, we will assume that whenever there is ambiguity in both the
 							standard and wall frames of reference, both are before the jump
 							or both are after the jump.*/
