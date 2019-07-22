@@ -1250,6 +1250,26 @@ function ==(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
   return (ccall(Libdl.dlsym(LocLib,:isEqualLocalCalCoordsDT), Bool,
                   (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
 end
+function !=(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
+  return (ccall(Libdl.dlsym(LocLib,:isNotEqualLocalCalCoordsDT), Bool,
+                  (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
+end
+function >(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
+  return (ccall(Libdl.dlsym(LocLib,:isGreaterLocalCalCoordsDT), Bool,
+                  (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
+end
+function <=(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
+  return (ccall(Libdl.dlsym(LocLib,:isLessOrEqualLocalCalCoordsDT), Bool,
+                  (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
+end
+function <(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
+  return (ccall(Libdl.dlsym(LocLib,:isLessLocalCalCoordsDT), Bool,
+                  (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
+end
+function >=(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
+  return (ccall(Libdl.dlsym(LocLib,:isGreaterOrEqualLocalCalCoordsDT), Bool,
+                  (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
+end
 # Translate a LocalCalCoordsDT to universal frame of reference
 function translateToUniversal(z::LocalCalCoordsDT)
 #    tzIndex = Ref{Cuint}(0)
