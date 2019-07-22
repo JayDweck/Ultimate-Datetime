@@ -76,21 +76,6 @@ function boxAndCompare(uf1t::UncertainFloat64, uf2t::UncertainFloat64)
 end
 # Create an array to contain the code fragments
 code = Array{CodeFragment,1}()
-# Demonstrate Julian to Gregorian transition
-push!(code,CodeFragment("Create a UTCDatetime just before the earliest transtion to the Gregorian calendar.",
-    :(utcj = UTCDatetime(y=1582,m=10,d=4,h=23,min=0,p=0,u=1))))
-push!(code,CodeFragment("Attempt to create a UTCDatetime during the skipped period.",
-    :(utcs = UTCDatetime(y=1582,m=10,d=5,h=1,min=0,p=0,u=1))))
-push!(code,CodeFragment("Create a UTCDatetime just after the earliest transition to the Gregorian calendar.",
-    :(utcg = UTCDatetime(y=1582,m=10,d=15,h=1,min=0,p=0,u=1))))
-push!(code,CodeFragment("Very little time elapsed between those two dates!",
-    :(utcg - utcj)))
-push!(code,CodeFragment("The Julian calendar continued on - the last country to adopt the Gregorian calendar was Greence in 1923.",
-    :(utcj2 = UTCDatetime(y=1582,m=10,d=5,h=1,min=0,p=0,u=1,c=1))))
-push!(code,CodeFragment("For every Gregorian datetime, there is a corresponding Julian datetime.",
-    :(utcg == utcj2)))
-push!(code,CodeFragment("Sweden has its own, bizarre calendar.",
-    :(UTCDatetime(y=1712,m=2,d=30,h=1,min=0,p=0,u=1,c=2))))
 # Uncertain Floats
 # Create an Uncertain Float with default precision and uncertainty
 push!(code,CodeFragment("Uncertain float with default precision and uncertainty",:(UncertainFloat64(1005.25))))
@@ -145,7 +130,33 @@ push!(code,CodeFragment("A relative datetime can be divided by another relative 
 push!(code,CodeFragment("The result of this division is an UncertianFloat64 (which is the original reason the type was created.)!", :(typeof(x))))
 push!(code,CodeFragment("When the UncertainFloat64 is multiplied by the denominator, the precision is restored with the propogated uncertainty.",
     :(x * (2*rel1 + 1.5*rel1))))
-# *** Leap seconds ***
+# Demonstrate Julian to Gregorian transition
+push!(code,CodeFragment("Create a UTCDatetime just before the earliest transtion to the Gregorian calendar.",
+    :(utcj = UTCDatetime(y=1582,m=10,d=4,h=23,min=0,p=0,u=1))))
+push!(code,CodeFragment("Attempt to create a UTCDatetime during the skipped period.",
+    :(utcs = UTCDatetime(y=1582,m=10,d=5,h=1,min=0,p=0,u=1))))
+push!(code,CodeFragment("Create a UTCDatetime just after the earliest transition to the Gregorian calendar.",
+    :(utcg = UTCDatetime(y=1582,m=10,d=15,h=1,min=0,p=0,u=1))))
+push!(code,CodeFragment("Very little time elapsed between those two dates!",
+    :(utcg - utcj)))
+# Demonstrate leap seconds
+push!(code,CodeFragment("Leap seconds occur at midnight UTC, either on June 30 or December 31.",
+    :(lsminus1 = UTCDatetime(y=2015,m=6,d=30,h=23,min=59,s=59))))
+push!(code,CodeFragment("This is the actual leap second.  Notice the seconds field.",
+    :(ls = UTCDatetime(y=2015,m=6,d=30,h=23,min=59,s=60))))
+push!(code,CodeFragment("This is the next second.",
+    :(lsplus1 = UTCDatetime(y=2015,m=7,d=1,h=0,min=0,s=0))))
+push!(code,CodeFragment("The arithmetic works.",
+    :(lsplus1 - lsminus1)))
+push!(code,CodeFragment("Only minutes containing leap seconds have a 60th second.",
+    :(ls = UTCDatetime(y=2015,m=6,d=30,h=23,min=58,s=60))))
+# Move to LocalCalCoords
+push!(code,CodeFragment("Construct a Gregorian date in the proleptic America/New_York time zone.",
+    :(lccj = LocalCalCoordsDT(10, 15, 1582, "America/New_York", 2; cal=0, h=10))))
+push!(code,CodeFragment("The Julian calendar continued on - the last country to adopt the Gregorian calendar was Greence in 1923.",
+    :(lccg = LocalCalCoordsDT(10, 5, 1582, "America/New_York", 2; cal=1, h=10))))
+push!(code,CodeFragment("For every Gregorian datetime, there is a corresponding Julian datetime.",
+    :(lccg == lccj)))
 # UTC Datetime Formatting
 push!(code,CodeFragment("Formatting is automatic based on precision.",
     :(for i = -18:15;

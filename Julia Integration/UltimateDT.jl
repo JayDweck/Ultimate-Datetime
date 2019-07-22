@@ -1245,6 +1245,11 @@ function reportLCCConstructionError(io::IO,lcc::LocalCalCoordsDT)
             (UInt16, Ptr{UInt8}, Int, Int), lcc.lccInit, sbuf, 800, 0)
     print(io, unsafe_string(buf),"\n")
 end
+# LocalCalCoordsDT comparison functions
+function ==(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
+  return (ccall(Libdl.dlsym(LocLib,:isEqualLocalCalCoordsDT), Bool,
+                  (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
+end
 # Translate a LocalCalCoordsDT to universal frame of reference
 function translateToUniversal(z::LocalCalCoordsDT)
 #    tzIndex = Ref{Cuint}(0)
