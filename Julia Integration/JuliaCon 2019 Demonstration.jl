@@ -153,7 +153,7 @@ push!(code,CodeFragment("Only minutes containing leap seconds have a 60th second
 # Move to LocalCalCoords
 push!(code,CodeFragment("Construct a Gregorian date in the proleptic America/New_York time zone.",
     :(lccj = LocalCalCoordsDT(10, 15, 1582, "America/New_York", 2; cal=0, h=10))))
-push!(code,CodeFragment("The Julian calendar continued on - the last country to adopt the Gregorian calendar was Greence in 1923.",
+push!(code,CodeFragment("The Julian calendar continued on - the last country to adopt the Gregorian calendar was Greece in 1923.",
     :(lccg = LocalCalCoordsDT(10, 5, 1582, "America/New_York", 2; cal=1, h=10))))
 push!(code,CodeFragment("For every Gregorian datetime, there is a corresponding Julian datetime.",
     :(lccg == lccj)))

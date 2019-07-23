@@ -783,6 +783,15 @@ DLLExport int isNotEqualLocalCalCoordsDT(LocalCalCoordsDT lcc1, LocalCalCoordsDT
 DLLExport int isGreaterOrEqualLocalCalCoordsDT(LocalCalCoordsDT lcc1, LocalCalCoordsDT lcc2);
 DLLExport int isLessOrEqualLocalCalCoordsDT(LocalCalCoordsDT lcc1, LocalCalCoordsDT lcc2);
 
+// Subtract LocalCalCoordsDTs
+DLLExport TAIRelDatetime diffLocalCalCoordsDTs(LocalCalCoordsDT u1, LocalCalCoordsDT u2);
+
+// Add TAIRelDatetime to LocalCalCoordsDT
+DLLExport LocalCalCoordsDT addRelToLocalCalCoordsDT(LocalCalCoordsDT u1, TAIRelDatetime re1, uint8_t futureAdjust);
+
+// Subtract TAIRelDatetime from LocalCalCoordsDT
+DLLExport LocalCalCoordsDT subtractRelFromLocalCalCoordsDT(LocalCalCoordsDT u1, TAIRelDatetime re1, uint8_t futureAdjust);
+
 // Format LocalCalCoordsDT
 DLLExport const char * asStringLocalCalCoordsDT(LocalCalCoordsDT lcc, char stringCal[]);
 

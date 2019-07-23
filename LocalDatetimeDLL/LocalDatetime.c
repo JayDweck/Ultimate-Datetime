@@ -970,7 +970,7 @@ const char * asStringLocalCalCoords(LocalCalCoords lcc, char stringCal[])
 	//
 	return asStringDatetime(lcc.cc.date.gigayear, lcc.cc.date.year, lcc.cc.date.month, lcc.cc.date.dayOfMonth,
 		lcc.cc.time.hour, lcc.cc.time.minute, lcc.cc.time.second, lcc.cc.time.nanosecond, lcc.cc.time.attosecond,
-		lcc.cc.date.calendar, lcc.frame, -2, 1, lcc.timezone, 0, stringCal);
+		lcc.cc.date.calendar, lcc.frame, -2, 0, lcc.timezone, 0, stringCal);
 }
 
 LocalCalCoords offsetLocalCalCoords_old(LocalCalCoords lcc, UTCOffset off)
@@ -1918,6 +1918,62 @@ int isLessOrEqualLocalCalCoordsDT(LocalCalCoordsDT lcc1, LocalCalCoordsDT lcc2)
 	return !isGreaterLocalCalCoordsDT(lcc1, lcc2);
 }
 
+// Subtract LocalCalCoordsDTs
+TAIRelDatetime diffLocalCalCoordsDTs(LocalCalCoordsDT u1, LocalCalCoordsDT u2)
+{
+	// Subtract LocalCalCoordsDTs and return a TAIRelDatetime
+	LocalDatetime ldt1, ldt2;
+
+	// Create local datetimes
+	ldt1 = createLocalDatetimeFromLocalCalCoordsDT(u1, 99, 0);
+	ldt2 = createLocalDatetimeFromLocalCalCoordsDT(u2, 99, 0);
+
+	// Subtract the ticks 
+	TAIRelTicks r1 = diffTicks(ldt1.tai, ldt2.tai);
+
+	// Derive the TAIRelDatetime from the reltick value
+	return deriveTAIRelDatetime(r1, 99, 0);
+}
+
+/* ***** Not yet implemented
+LocalCalCoordsDT addRelToLocalCalCoordsDT(LocalCalCoordsDT u1, TAIRelDatetime re1, uint8_t futureAdjust)
+{
+	// Add a TAI relative datetime to a UTC datetime and return a UTC datetime.
+	//	Allow for a futureAdjust value different than the input UTC datetime, but
+	//	keep the same calendar.
+
+	// Add the tick values
+	TAITicks t1 = addRelTicksToTicks(u1.tai, re1.relTicks);
+
+	// Calculate the precision and uncertainty
+	PrecisionUncertainty pu1 = addPrecisionUncertainty(u1.precision, u1.uncertainty, 0,
+		re1.precision, re1.uncertainty, 1);
+
+	// Derive the LocalCalCoordsDT from the tick value
+	//  If there was an overflow, t1 will be set to EndOfTimePlus, triggering an error
+	//		in deriveLocalCalCoordsDT
+	return deriveLocalCalCoordsDT(t1, pu1.precision, pu1.uncertainty, futureAdjust);
+}
+
+LocalCalCoordsDT subtractRelFromLocalCalCoordsDT(LocalCalCoordsDT u1, TAIRelDatetime re1, uint8_t futureAdjust)
+{
+	// Subtract a TAI relative datetime from a UTC datetime and return a UTC datetime.
+	//	Allow for a futureAdjust value different than the input UTC datetime, but
+	//	keep the same calendar.
+
+	// Add the tick values
+	TAITicks t1 = subtractRelTicksFromTicks(u1.tai, re1.relTicks);
+
+	// Calculate the precision and uncertainty
+	PrecisionUncertainty pu1 = addPrecisionUncertainty(u1.precision, u1.uncertainty, 0,
+		re1.precision, re1.uncertainty, 1);
+
+	// Derive the LocalCalCoordsDT from the tick value
+	//  If there was an overflow, t1 will be set to EndOfTimePlus, triggering an error
+	//		in deriveLocalCalCoordsDT
+	return deriveLocalCalCoordsDT(t1, pu1.precision, pu1.uncertainty, futureAdjust);
+}
+*/
 const char * asStringLocalCalCoordsDT(LocalCalCoordsDT lcc, char stringCal[])
 {
 	// Format a LocalCalCoordsDT as a readable string
@@ -1927,7 +1983,7 @@ const char * asStringLocalCalCoordsDT(LocalCalCoordsDT lcc, char stringCal[])
 	//
 	return asStringDatetime(lcc.cc.date.gigayear, lcc.cc.date.year, lcc.cc.date.month, lcc.cc.date.dayOfMonth,
 		lcc.cc.time.hour, lcc.cc.time.minute, lcc.cc.time.second, lcc.cc.time.nanosecond, lcc.cc.time.attosecond,
-		lcc.cc.date.calendar, lcc.frame, -2, 1, lcc.timezone, lcc.bOrA, stringCal);
+		lcc.cc.date.calendar, lcc.frame, -2, 0, lcc.timezone, lcc.bOrA, stringCal);
 }
 
 LocalCalCoordsDT offsetLocalCalCoordsDT_old(LocalCalCoordsDT lcc, UTCOffset off)

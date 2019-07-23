@@ -1809,24 +1809,24 @@ lccdt6a = LocalCalCoordsDT(3,31,1991,"Europe/Zaporozhye",1,h=1,min=15,ba='b')
 # Wall time that is ambiguous in wall and standard frames of reference
 lccdt7 = LocalCalCoordsDT(8,24,1941,"Europe/Zaporozhye",2,h=22,min=30,ba='a')
 @testset "LocalCalCoordsDT translation" begin
-    @test string(lccdt1) == "29-May-2018 05:10:20.25 ± 10 milliseconds America/New_York"
+    @test string(lccdt1) == "29-May-2018 05:10:20.25 America/New_York"
     # Translate wall time to universal time
     @test string(translate(lccdt1;f=0)) ==
-        "29-May-2018 09:10:20.25 ± 10 milliseconds UTC"
+        "29-May-2018 09:10:20.25 UTC"
     # Translate wall time to standard time
     @test string(translate(lccdt1;f=1)) ==
-        "29-May-2018 04:10:20.25 ± 10 milliseconds America/New_York Standard"
-    @test string(lccdt5) == "04-Nov-2018 01:15:00.00 ± 10 milliseconds America/Boise (-)"
+        "29-May-2018 04:10:20.25 America/New_York Standard"
+    @test string(lccdt5) == "04-Nov-2018 01:15:00.00 America/Boise (-)"
     # Translate ambiguous wall time to unambiguous standard time
     @test string(translate(lccdt5;f=1)) ==
-        "04-Nov-2018 00:15:00.00 ± 10 milliseconds America/Boise Standard"
+        "04-Nov-2018 00:15:00.00 America/Boise Standard"
     # Translate unambiguous wall time to ambiguous standard time
     @test string(translate(lccdt6;f=1)) ==
-        "31-Mar-1991 01:15:00.00 ± 10 milliseconds Europe/Zaporozhye Standard (+)"
+        "31-Mar-1991 01:15:00.00 Europe/Zaporozhye Standard (+)"
     # Translate ambiguous standard time to unambiguous wall time
     @test string(translate(lccdt6a,f=2)) ==
-        "31-Mar-1991 01:15:00.00 ± 10 milliseconds Europe/Zaporozhye"
+        "31-Mar-1991 01:15:00.00 Europe/Zaporozhye"
     # Translate ambiguous wall time to ambiguous standard time
     @test string(translate(lccdt7;f=1)) ==
-        "24-Aug-1941 22:30:00.00 ± 10 milliseconds Europe/Zaporozhye Standard (+)"
+        "24-Aug-1941 22:30:00.00 Europe/Zaporozhye Standard (+)"
 end
