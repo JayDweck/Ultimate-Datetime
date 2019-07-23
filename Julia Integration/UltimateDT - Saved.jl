@@ -173,46 +173,46 @@ struct UTCDatetime
     dayOfMonth::UInt8
     month::UInt8 # 1 = Jan, 2 = Feb, ... 12 = Dec
     year::Int32  #= Positive years = CE, 0 = 1BCE, -1 = 2 BCE, ... -n = n+1 BCE
-      Used a 32-bit value, even though years can go from 13e9 BCE
-  to over 100e9 CE for 32-bit Ticks and 500e9 CE for 64-bit Ticks.
-  The reason for this is to avoid creating two data strcutures,
-  one that uses a 64-bit int for years and one that uses 2 32-bit
-  ints.=#
+				      Used a 32-bit value, even though years can go from 13e9 BCE
+					  to over 100e9 CE for 32-bit Ticks and 500e9 CE for 64-bit Ticks.
+					  The reason for this is to avoid creating two data strcutures,
+					  one that uses a 64-bit int for years and one that uses 2 32-bit
+					  ints.=#
 
     gigayear::Int8 #= Number of billions of years.  Using an 8-bit int limits
-the value to 127 billion years. =#
+							the value to 127 billion years. =#
     hour::UInt8 # Calendar hour
     minute::UInt8 # Calendar minute
     second::UInt8 #= Calendar second
                         nanosecond and attosecond have been removed from the utc data
                         structure, because they are large and quickly calculable from tai =#
     precision::Int8 #= 99=unspecified, 3=day, 2=hour, 1=minute, 0=second, -1=10^-1 second,
--n=10^-n second =#
+								-n=10^-n second =#
     uncertainty::Int8 #= As a multiplier of precision - 0 = unspecified
-For example, if precision=-3 and uncertainty=10, the time
-is known to ± 10 milliseconds. =#
+							For example, if precision=-3 and uncertainty=10, the time
+							is known to ± 10 milliseconds. =#
     futureAdjust::UInt8 #= If the value is nonzero, the tick count or datetime elements
-are to be adjusted, if necessary, when leap seconds are added.
-This is only applicable when a datetime past the end of the leap
-second table is specified.  The tick count that is calculated for
-this datetime will reflect the number of leap seconds known at the
-time of specification.  If another leap second is added to the table
-before the specified datetime, the tick count and the datetime elements
-will be inconsistent.  I.e., the tick count will reflect the time one
-second earlier.  If futureAdjust is 1, the tick count will be
-recalculated to be consistent with the specified datetime on subsequent
-calls to calcTicks.  If futureAdjust is 2, the datetime elements will
-be adjusted to be consistent with the tick count on a subsequent
-call to adjustDatetime.  If on a call to
-to calcTicks or adjustDatetime, the specified datetime is no longer
-past the end of the table, futureAdjust will be set to 0,
-indicating no further adjustments are required.   To avoid making
+							are to be adjusted, if necessary, when leap seconds are added.
+							This is only applicable when a datetime past the end of the leap
+							second table is specified.  The	tick count that is calculated for
+							this datetime will reflect the number of leap seconds known at the
+							time of specification.  If another leap second is added to the table
+							before the specified datetime, the tick count and the datetime elements
+							will be inconsistent.  I.e., the tick count will reflect the time one
+							second earlier.  If futureAdjust is 1, the tick count will be
+							recalculated to be consistent with the specified datetime on subsequent
+							calls to calcTicks.  If futureAdjust is 2, the datetime elements will
+							be adjusted to be consistent with the tick count on a subsequent
+							call to adjustDatetime.  If on a call to
+							to calcTicks or adjustDatetime, the specified datetime is no longer
+							past the end of the table, futureAdjust will be set to 0,
+							indicating no further adjustments are required.   To avoid making
                             this data structure mutable, create a copy in these situations. =#
     tai::TAITicks # The tick count associated with this UTC datetime
     taiInit::UInt16 #= Bit field indicating status of initialization and error codes
-0000h indicates initialized without error.
-Other values indicate specification errors as per ccInit
-=#
+						0000h indicates initialized without error.
+						Other values indicate specification errors as per ccInit
+						=#
 end
 # UTCDatetime constructors
 function UTCDatetime(; gy = 0, y = 0, m = 1, d = 1, h = 0, min = 0, s = 0, ns = 0, as = 0,
@@ -401,18 +401,18 @@ struct TAIRelDatetime
     minutes::UInt8
     seconds::UInt8
     precision::Int8 #= 99=unspecified, 3=day, 2=hour, 1=minute, 0=second, -1=10^-1 second,
--n=10^-n second =#
+								-n=10^-n second =#
     uncertainty::Int8 #= As a multiplier of precision - 0 = unspecified
-For example, if precision=-3 and uncertainty=10, the time
-is known to ± 10 milliseconds. =#
+							For example, if precision=-3 and uncertainty=10, the time
+							is known to ± 10 milliseconds. =#
     relTicks::TAIRelTicks
     relInit::UInt8 #= Bit field indicating status of initialization and error codes
-00h indicates initialized without error.
-Other values indicate specification errors as follows, by bit number:
-1 Relative datetime greater than max, 2 Days >= 1e9,
-3 Hours > 23,                      4 Minutes > 59,
-5 Seconds > 59,              6 Nano >= 1e9,
-7 Atto >= 1e9, 8 Invalid Precision =#
+						00h indicates initialized without error.
+						Other values indicate specification errors as follows, by bit number:
+						1 Relative datetime greater than max,			 2 Days >= 1e9,
+						3 Hours > 23,				                     4 Minutes > 59,
+						5 Seconds > 59,						             6 Nano >= 1e9,
+						7 Atto >= 1e9,									 8 Invalid Precision =#
 end
 # TAIRelDatetime constructors
 function TAIRelDatetime(; gd = 0, d = 0, h = 0, m = 0, s = 0, ns = 0, as = 0,
@@ -800,13 +800,13 @@ function asGregorian(x::DateCoords)
     return (ccall(Libdl.dlsym(UDTLib,:convertToUTCGregorian), DateCoords,
                     (DateCoords, ),x))
 end
-#  Convert to a date on the Julian calendar
-function asJulian(x::DateCoords)
+ #  Convert to a date on the Julian calendar
+ function asJulian(x::DateCoords)
     return (ccall(Libdl.dlsym(UDTLib,:convertToJulian), DateCoords,
                     (DateCoords, ),x))
 end
-# Convert to a date on a specified calendar
-function asCalendar(x::DateCoords, y::Number)
+ # Convert to a date on a specified calendar
+ function asCalendar(x::DateCoords, y::Number)
     return (ccall(Libdl.dlsym(UDTLib,:convertToCalendar), DateCoords,
                     (DateCoords, UInt32),x,y))
 end
@@ -831,15 +831,15 @@ struct CalCoords
     ccInit:: UInt16 #= Bit field indicating status of initialization and error codes
                         0000h indicates initialized without error.
                         Other values indicate specification errors as follows, by bit number:
-                        1 Date before the Big Bang, 2 GigaYear >= 100,
-                        3 Invalid Year <= -1e9 || >= 1e9, 4 Invalid month,
-                        5 Invalid day of the month, 6 Invalid calendar,
-                        7 Hour > 23 or Min > 59 or Sec > 60, 8 Nanosecond >= 1e9,
-                        9 Attosecond >= 1e9, 10 Not a leap second, but second == 60,
-                        11 Invalid precision, 12 Invalid futureAdjust,
-                        13 Invalid timezone, 14 Invalid frame of reference,
-                        15 Invalid dateime (skipped period), 16 Missing disambiguation
-=#
+                        1 Date before the Big Bang,					 2 GigaYear >= 100,
+                        3 Invalid Year <= -1e9 || >= 1e9,			 4 Invalid month,
+                        5 Invalid day of the month,					 6 Invalid calendar,
+                        7 Hour > 23 or Min > 59 or Sec > 60,		 8 Nanosecond >= 1e9,
+                        9 Attosecond >= 1e9,						10 Not a leap second, but second == 60,
+                        11 Invalid precision,						12 Invalid futureAdjust,
+                        13 Invalid timezone,						14 Invalid frame of reference,
+                        15 Invalid dateime (skipped period),		16 Missing disambiguation
+					 =#
 end
 # CalCoords constructors
 #   From month, day, year
@@ -928,40 +928,40 @@ function asGregorian(x::CalCoords)
     return (ccall(Libdl.dlsym(UDTLib,:convertCalToUTCGregorian), CalCoords,
                     (CalCoords, ),x))
 end
-#  Convert to a datetime on the Julian calendar
-function asJulian(x::CalCoords)
+ #  Convert to a datetime on the Julian calendar
+ function asJulian(x::CalCoords)
     return (ccall(Libdl.dlsym(UDTLib,:convertCalToJulian), CalCoords,
                     (CalCoords, ),x))
 end
-# Convert to a datetime on a specified calendar
-function asCalendar(x::CalCoords, y::Number)
+ # Convert to a datetime on a specified calendar
+ function asCalendar(x::CalCoords, y::Number)
     return (ccall(Libdl.dlsym(UDTLib,:convertCalToCalendar), CalCoords,
                     (CalCoords, UInt32),x,y))
 end
 # Define a struct for UncertainFloat64s
 struct UTCOffset
-#= A UTCOffset is used to translate from local time coordinates to UTC.
-The elements are specified as calendar coordinates, instead of as
-a relative datetime, since the local time cannot be converted to
-ticks prior to the conversion to UTC =#
-isNegative:: UInt8 # 0 for positive, 1 for negative
-days:: UInt8  # allow offsets with 0 or 1 day.  Used for offsets >= 24 hours.
-hours:: UInt8 # hours in the offset.  If >=24 hours, set days to 1.
-minutes:: UInt8 # minutes in the offset
-seconds:: UInt8 # seconds in the offset.  Seconds only allowed prior to
-# the advent of legal time zones
-hundredths:: UInt8 # hundredths of a second in the offset
+	#= A UTCOffset is used to translate from local time coordinates to UTC.
+		The elements are specified as calendar coordinates, instead of as
+		a relative datetime, since the local time cannot be converted to
+		ticks prior to the conversion to UTC =#
+	isNegative:: UInt8 # 0 for positive, 1 for negative
+	days:: UInt8  # allow offsets with 0 or 1 day.  Used for offsets >= 24 hours.
+	hours:: UInt8 # hours in the offset.  If >=24 hours, set days to 1.
+	minutes:: UInt8 # minutes in the offset
+	seconds:: UInt8 # seconds in the offset.  Seconds only allowed prior to
+					#	the advent of legal time zones
+	hundredths:: UInt8 # hundredths of a second in the offset
     offsetType:: UInt8 # Offset type: 0 = u to s, 1 = s to w, 2 = u to w, 3 = w to w
-   #    Type 3 represents a jump from the end of one period to the beginning of the next
-uOffInit:: UInt8 #= Bit field indicating status of initialization and error codes
-0000h indicates initialized without error.
-Other values indicate specification errors as follows, by bit number:
-1 Invalid isNegative, 2 Days > 1,
-3 Hours > 23, 4 Minutes > 59,
-5 Seconds > 59, 6 Hundredths > 99
-                     7 Type > 3, 8 Invalid Operation - attempt to generate
-an offset via an invalid operation
-=#
+					   #    Type 3 represents a jump from the end of one period to the beginning of the next
+	uOffInit:: UInt8 #= Bit field indicating status of initialization and error codes
+					 0000h indicates initialized without error.
+					 Other values indicate specification errors as follows, by bit number:
+					 1 Invalid isNegative,							 2 Days > 1,
+					 3 Hours > 23,									 4 Minutes > 59,
+					 5 Seconds > 59,								 6 Hundredths > 99
+                     7 Type > 3,									 8 Invalid Operation - attempt to generate
+																		an offset via an invalid operation
+					 =#
 end
 # UTCOffset constructor
 function UTCOffset(; isneg = 0, d = 0, h = 0, m = 0, s = 0, hnd = 0, typ = "u-s")
@@ -1135,90 +1135,90 @@ end
 # Define a struct to represent calendar coordinates for a local datetime
 struct LocalCalCoordsDT
 #
-# A local datetime expressed in terms of calendar coordinates without a tick count
-cc:: CalCoords #= The calendar coordinates - gigayear through attosecond, plus calendar.=#
-timezone:: NTuple{maxTZNameLength,UInt8} #= The name of a timezone from the IANA time zone database.
-   It is storage inefficient to use the name, but if it is
-   replaced by an index, care must be taken to not change
-   index values when updating the time zone database. =#
-frame:: UInt8 # Frame of reference.  0 = universal, 1 = standard and 2 = wall.
-#   Wall is daylight savings time when a DSTR is in effect
-#   and standard time when there is no effective DSTR.
-bOrA:: UInt8 #= Flag indicating whether a specified time is before a negative jump
-  in u-w or after.  The most common requirement for this specification is
-  for the 1 or 2 hours after the time is reset to standard time.  For
-  example, in the eastern time zone at 2 am on the first Sunday
-  in November, the time resets to 1 am.  Thus all of the times
-  between 1:00:00 and 1:59:59 are repeated, so, to avoid
-  ambiguity, a 'B' or 'A' needs to be specified.
+	# A local datetime expressed in terms of calendar coordinates without a tick count
+	cc:: CalCoords #= The calendar coordinates - gigayear through attosecond, plus calendar.=#
+	timezone:: NTuple{maxTZNameLength,UInt8} #= The name of a timezone from the IANA time zone database.
+						   It is storage inefficient to use the name, but if it is
+						   replaced by an index, care must be taken to not change
+						   index values when updating the time zone database. =#
+	frame:: UInt8 # Frame of reference.  0 = universal, 1 = standard and 2 = wall.
+						#   Wall is daylight savings time when a DSTR is in effect
+						#   and standard time when there is no effective DSTR.
+	bOrA:: UInt8 #= Flag indicating whether a specified time is before a negative jump
+				  in u-w or after.  The most common requirement for this specification is
+				  for the 1 or 2 hours after the time is reset to standard time.  For
+				  example, in the eastern time zone at 2 am on the first Sunday
+				  in November, the time resets to 1 am.  Thus all of the times
+				  between 1:00:00 and 1:59:59 are repeated, so, to avoid
+				  ambiguity, a 'B' or 'A' needs to be specified.
 
-  The value may be either ' ', 'a', 'A', 'b', 'B', 0, 1 or 2.
-  ' ' or 0 indicates unspecified, which will result in an error if
-this is an amibuguous time.
-  'b', 'B', or 1 indicates before the jump.
-  'a', 'A', or 2 indicates after the jump.
+				  The value may be either ' ', 'a', 'A', 'b', 'B', 0, 1 or 2.
+				  ' ' or 0 indicates unspecified, which will result in an error if
+					this is an amibuguous time.
+				  'b', 'B', or 1 indicates before the jump.
+				  'a', 'A', or 2 indicates after the jump.
 
-  This specification also could be required to disambiguate standard
-  times, in the case of a negative jump in u-s, which occurs when
-  there is a negative change in GMT Offset. =#
+				  This specification also could be required to disambiguate standard
+				  times, in the case of a negative jump in u-s, which occurs when
+				  there is a negative change in GMT Offset. =#
     ambigS:: UInt8 #= A flag indicating whether the LocalCalCoordsDT is an ambiguous region when
-              translated to a standard time.
-              Ambiguous regions can occur for standard times, when there is a negative
-              change in GMT offset, or for wall times, when there is negative jump in
-              GMT offset + S-W offset.  When a LocalCalCoordsDT is translated to either
-              a standard or wall frame of reference, a check must be made for ambiguous
-              regions and the appropriate value of bOrA assigned.  This check can be
-              complex, requiring much of the logic in computeOffsets.  To avoid these
-              calculations upon every translation, ambigS and ambigW are computed
-              in the computeOffsets call and saved within the LocalCalCoordsDT struct. =#
+              		translated to a standard time.
+              		Ambiguous regions can occur for standard times, when there is a negative
+              		change in GMT offset, or for wall times, when there is negative jump in
+              		GMT offset + S-W offset.  When a LocalCalCoordsDT is translated to either
+              		a standard or wall frame of reference, a check must be made for ambiguous
+              		regions and the appropriate value of bOrA assigned.  This check can be
+              		complex, requiring much of the logic in computeOffsets.  To avoid these
+              		calculations upon every translation, ambigS and ambigW are computed
+              		in the computeOffsets call and saved within the LocalCalCoordsDT struct. =#
     ambigW:: UInt8 #= A flag indicating whether the LocalCalCoordsDT is an ambiguous region when
-              translated to a wall time. =#
+              						translated to a wall time. =#
     beforeFlag:: UInt8 #= For a LocalCalCoordsDT created in the universal frame of reference,
-              or for a LocalCalCoordsDT created in an unambiguous region for
-              a standard or wall frame of reference.
-              bOrA will be 0.  As such, there is no indication when the
-              LocalCalCoordsDT is translated to standard or wall frame of
-              reference, and there is ambiguity, whether bOrA is before
-              or after.  This flag provides that indication.
-              One could conceive of a pathological case where a before value
-              in standard frame of reference is actually an after value in
-              wall frame of reference.  This case does not exist in practice
-              and would likely cause problems in other sections of the algorithem.
-              Thus, we will assume that whenever there is ambiguity in both the
-              standard and wall frames of reference, both are before the jump
-              or both are after the jump.=#
-futureAdjust:: UInt8 #= Same concept as for UTC, except for time zone and/or rules.  Ie, if
-  the datetime is within the last time zone period, provision must be made
-  for future changes to the GMTOffset or DSTR, which can occur when
-  new IANA timezone files are received.  If futureAdjust == 1, the
-  CalCoords values will be preserved for standard and wall frames of
-  reference.  This has the effect of adjusting the associated Universal time.
-  (futureAdjust is not relevant for CalCoords with a Universal
-  time frame.)  If futureAdjust == 2, the CalCoords will be adjusted to
-  preserve the associated Universal time.
-  If the datetime is before the last time zone period, either when
-  created or on a subsequent call to adjustCalCoords after a change
-  to GMTOffset or DSTR, futureAdjust is set to 0. =#
+              			or for a LocalCalCoordsDT created in an unambiguous region for
+              			a standard or wall frame of reference.
+              			bOrA will be 0.  As such, there is no indication when the
+              			LocalCalCoordsDT is translated to standard or wall frame of
+              			reference, and there is ambiguity, whether bOrA is before
+              			or after.  This flag provides that indication.
+              			One could conceive of a pathological case where a before value
+              			in standard frame of reference is actually an after value in
+              			wall frame of reference.  This case does not exist in practice
+              			and would likely cause problems in other sections of the algorithem.
+              			Thus, we will assume that whenever there is ambiguity in both the
+              			standard and wall frames of reference, both are before the jump
+              			or both are after the jump.=#
+	futureAdjust:: UInt8 #= Same concept as for UTC, except for time zone and/or rules.  Ie, if
+						  the datetime is within the last time zone period, provision must be made
+						  for future changes to the GMTOffset or DSTR, which can occur when
+						  new IANA timezone files are received.  If futureAdjust == 1, the
+						  CalCoords values will be preserved for standard and wall frames of
+						  reference.  This has the effect of adjusting the associated Universal time.
+						  (futureAdjust is not relevant for CalCoords with a Universal
+						  time frame.)  If futureAdjust == 2, the CalCoords will be adjusted to
+						  preserve the associated Universal time.
+						  If the datetime is before the last time zone period, either when
+						  created or on a subsequent call to adjustCalCoords after a change
+						  to GMTOffset or DSTR, futureAdjust is set to 0. =#
     timezoneIndex:: UInt32 # The index of the time zone in the PeriodTimeZones array
     periodIndex:: UInt8 #= The index of the period in the PeriodTimeZones array.
-                      GMT Offset can be retrieved:
-                      PeriodTimeZones[timezoneIndex].periods[periodIndex].gMTOffset
-                      Could have stored GMTOffset, but that is 64 bits, as opposed to 40 bits =#
+                      			GMT Offset can be retrieved:
+                      			PeriodTimeZones[timezoneIndex].periods[periodIndex].gMTOffset
+                      			Could have stored GMTOffset, but that is 64 bits, as opposed to 40 bits =#
     sToWMinutes:: UInt8 #= The DST (aka S-W) offset based on the time zone and DSTR in minutes.
-                      All DST offsets are in even number of minutes, with the largest
-                      in the IANA files being 2 hours.  Could have stored sToWOffset, but
-                      that is 64 bits.
-                      S-W offset can be computed by calling:
-                      createUTCOffset(0, 0, sToWMinutes/60, sToWMinutes % 60, ....) =#
-lccInit:: UInt16  #= Bit field indicating status of initialization and error codes
-0000h indicates initialized without error.
-Other values indicate specification errors as per ccInit
-   =#
+                      			All DST offsets are in even number of minutes, with the largest
+                      			in the IANA files being 2 hours.  Could have stored sToWOffset, but
+                      			that is 64 bits.
+                      			S-W offset can be computed by calling:
+                      				createUTCOffset(0, 0, sToWMinutes/60, sToWMinutes % 60, ....) =#
+	lccInit:: UInt16  #= Bit field indicating status of initialization and error codes
+						0000h indicates initialized without error.
+						Other values indicate specification errors as per ccInit
+					   =#
 end
 # LocalCalCoordsDT constructors
 #   From month, day, year
 function LocalCalCoordsDT(m::Number, d::Number, y::Number, tz::String, f::Number; cal=0, gy=0, h=0,
-    min=0, s=0, ns=0, as=0, ba=0, fa=2)
+    min=0, s=0, ns=0, as=0, ba=0, fa=0)
     y = (ccall(Libdl.dlsym(LocLib,:createLocalCalCoordsDT), LocalCalCoordsDT,
             (Int8, Int32, UInt8, UInt8, UInt8, UInt8, UInt8,
             UInt32, UInt32, UInt32, Ptr{UInt8}, UInt8, UInt8, UInt8),gy, y, m, d, h, min, s,
@@ -1249,31 +1249,6 @@ end
 function ==(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
   return (ccall(Libdl.dlsym(LocLib,:isEqualLocalCalCoordsDT), Bool,
                   (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
-end
-function !=(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
-  return (ccall(Libdl.dlsym(LocLib,:isNotEqualLocalCalCoordsDT), Bool,
-                  (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
-end
-function >(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
-  return (ccall(Libdl.dlsym(LocLib,:isGreaterLocalCalCoordsDT), Bool,
-                  (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
-end
-function <=(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
-  return (ccall(Libdl.dlsym(LocLib,:isLessOrEqualLocalCalCoordsDT), Bool,
-                  (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
-end
-function <(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
-  return (ccall(Libdl.dlsym(LocLib,:isLessLocalCalCoordsDT), Bool,
-                  (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
-end
-function >=(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
-  return (ccall(Libdl.dlsym(LocLib,:isGreaterOrEqualLocalCalCoordsDT), Bool,
-                  (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
-end
-# Difference between 2 LocalCalCoordsDTs
-function -(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
-    return (ccall(Libdl.dlsym(LocLib,:diffLocalCalCoordsDTs), TAIRelDatetime,
-                    (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
 end
 # Translate a LocalCalCoordsDT to universal frame of reference
 function translateToUniversal(z::LocalCalCoordsDT)

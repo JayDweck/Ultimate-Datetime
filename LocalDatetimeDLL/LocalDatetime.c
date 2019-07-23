@@ -4805,7 +4805,7 @@ LocalCalCoordsDT translateToUniversal(LocalCalCoordsDT lcc)
 	LocalCalCoordsDT lccInput;
 	BracketingSegments brackSeg;
 	uint32_t i, pTZInd;
-	uint8_t j, pMin, pMax, pMid, perInd, segInd;
+	int32_t j, pMin, pMax, pMid, perInd, segInd;
 	//
 	//  Save the input value of lcc
 	//
