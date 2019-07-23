@@ -225,6 +225,14 @@ push!(code,CodeFragment("Construct a later Gregorian date.",
     :(lccg2 = LocalCalCoordsDT(10, 16, 1582, "America/New_York", 2; cal=0, h=10))))
 push!(code,CodeFragment("Compare.", :(simpleCompare(lccg2, lccj))))
 push!(code,CodeFragment("Arithmetic works for this type, too.", :(lccg2 - lccj)))
-#***** Show Swedish calendar
+#Show Swedish calendar
+push!(code,CodeFragment("Sweden did something strange in 1712.",
+    :(lccsw = LocalCalCoordsDT(2, 30, 1712, "America/New_York", 2; cal=2, h=10))))
+push!(code,CodeFragment("The Julian calendar is 1 day ahead, since Sweden skipped 2-29-1700.",
+    :(lccj = LocalCalCoordsDT(2, 29, 1712, "America/New_York", 2; cal=1, h=10))))
+push!(code,CodeFragment("Arithmetic is calendar aware.", :(lccsw - lccj)))
+push!(code,CodeFragment("When last we checked, the Gregorian calendar was 10 days ahead of the Julian calendar.",
+    :(lccg = LocalCalCoordsDT(3, 10, 1712, "America/New_York", 2; cal=0, h=10))))
+push!(code,CodeFragment("What the heck???", :(lccg - lccj)))
 map(demo_code, code)
 nothing
