@@ -970,7 +970,7 @@ const char * asStringLocalCalCoords(LocalCalCoords lcc, char stringCal[])
 	//
 	return asStringDatetime(lcc.cc.date.gigayear, lcc.cc.date.year, lcc.cc.date.month, lcc.cc.date.dayOfMonth,
 		lcc.cc.time.hour, lcc.cc.time.minute, lcc.cc.time.second, lcc.cc.time.nanosecond, lcc.cc.time.attosecond,
-		lcc.cc.date.calendar, lcc.frame, -2, 1, lcc.timezone, 0, stringCal);
+		lcc.cc.date.calendar, lcc.frame, -2, 0, lcc.timezone, 0, stringCal);
 }
 
 LocalCalCoords offsetLocalCalCoords_old(LocalCalCoords lcc, UTCOffset off)
@@ -1918,6 +1918,69 @@ int isLessOrEqualLocalCalCoordsDT(LocalCalCoordsDT lcc1, LocalCalCoordsDT lcc2)
 	return !isGreaterLocalCalCoordsDT(lcc1, lcc2);
 }
 
+// Subtract LocalCalCoordsDTs
+TAIRelDatetime diffLocalCalCoordsDTs(LocalCalCoordsDT u1, LocalCalCoordsDT u2)
+{
+	// Subtract LocalCalCoordsDTs and return a TAIRelDatetime
+	UTCDatetime utc1, utc2;
+
+	// Create UTCDatetimes, which will create ticks.
+	// LocalCalCoords do not have precision and uncertainty.
+	utc1 = createUTCDatetimeFromLocalCalCoordsDT(u1, 99, 0);
+	utc2 = createUTCDatetimeFromLocalCalCoordsDT(u2, 99, 0);
+
+	// Subtract the ticks 
+	TAIRelTicks r1 = diffTicks(utc1.tai, utc2.tai);
+
+	// Derive the TAIRelDatetime from the reltick value
+	return deriveTAIRelDatetime(r1, 99, 0);
+}
+
+LocalCalCoordsDT addRelToLocalCalCoordsDT(LocalCalCoordsDT u1, TAIRelDatetime re1, uint8_t futureAdjust)
+{
+	// Add a TAI relative datetime to a LocalCalCoordsDT and return a LocalCalCoordsDT.
+	//	Allow for a futureAdjust value different than the input UTC LocalCalCoords, but
+	//	keep the same calendar.
+
+	UTCDatetime utc1, utc2;
+
+	// Create a UTCDatetimes, which will create ticks.
+	// LocalCalCoords do not have precision and uncertainty.
+	utc1 = createUTCDatetimeFromLocalCalCoordsDT(u1, 99, 0);
+
+	// Add the tick values
+	TAITicks t1 = addRelTicksToTicks(utc1.tai, re1.relTicks);
+
+	// Derive a UTCDatetime from the tick value
+	//  If there was an overflow, t1 will be set to EndOfTimePlus, triggering an error
+	//		in deriveLocalCalCoordsDT
+	utc2 = deriveUTCDatetime(t1, 99, 0, futureAdjust);
+
+	// Create a universal LocalCalCoordsDT
+	// Translate to the original frame
+
+	return deriveLocalCalCoordsDT(t1, pu1.precision, pu1.uncertainty, futureAdjust);
+}
+
+LocalCalCoordsDT subtractRelFromLocalCalCoordsDT(LocalCalCoordsDT u1, TAIRelDatetime re1, uint8_t futureAdjust)
+{
+	// Subtract a TAI relative datetime from a UTC datetime and return a UTC datetime.
+	//	Allow for a futureAdjust value different than the input UTC datetime, but
+	//	keep the same calendar.
+
+	// Add the tick values
+	TAITicks t1 = subtractRelTicksFromTicks(u1.tai, re1.relTicks);
+
+	// Calculate the precision and uncertainty
+	PrecisionUncertainty pu1 = addPrecisionUncertainty(u1.precision, u1.uncertainty, 0,
+		re1.precision, re1.uncertainty, 1);
+
+	// Derive the LocalCalCoordsDT from the tick value
+	//  If there was an overflow, t1 will be set to EndOfTimePlus, triggering an error
+	//		in deriveLocalCalCoordsDT
+	return deriveLocalCalCoordsDT(t1, pu1.precision, pu1.uncertainty, futureAdjust);
+}
+
 const char * asStringLocalCalCoordsDT(LocalCalCoordsDT lcc, char stringCal[])
 {
 	// Format a LocalCalCoordsDT as a readable string
@@ -1927,7 +1990,7 @@ const char * asStringLocalCalCoordsDT(LocalCalCoordsDT lcc, char stringCal[])
 	//
 	return asStringDatetime(lcc.cc.date.gigayear, lcc.cc.date.year, lcc.cc.date.month, lcc.cc.date.dayOfMonth,
 		lcc.cc.time.hour, lcc.cc.time.minute, lcc.cc.time.second, lcc.cc.time.nanosecond, lcc.cc.time.attosecond,
-		lcc.cc.date.calendar, lcc.frame, -2, 1, lcc.timezone, lcc.bOrA, stringCal);
+		lcc.cc.date.calendar, lcc.frame, -2, 0, lcc.timezone, lcc.bOrA, stringCal);
 }
 
 LocalCalCoordsDT offsetLocalCalCoordsDT_old(LocalCalCoordsDT lcc, UTCOffset off)
@@ -4749,7 +4812,7 @@ LocalCalCoordsDT translateToUniversal(LocalCalCoordsDT lcc)
 	LocalCalCoordsDT lccInput;
 	BracketingSegments brackSeg;
 	uint32_t i, pTZInd;
-	uint8_t j, pMin, pMax, pMid, perInd, segInd;
+	int32_t j, pMin, pMax, pMid, perInd, segInd;
 	//
 	//  Save the input value of lcc
 	//
@@ -5425,6 +5488,30 @@ LocalDatetime createLocalDatetimeFromLocalCalCoordsDT(LocalCalCoordsDT lcc, int8
 	ldt.sToWMinutes = lcc.sToWMinutes;
 	ldt.ldtInit = 0;
 	return ldt;
+}
+
+UTCDatetime createUTCDatetimeFromLocalCalCoordsDT(LocalCalCoordsDT lcc, int8_t precision,
+	int8_t uncertainty)
+{
+	// Create a UTCDatetime from a LocalCalCoords
+	//	Assume LocalCalCoords is valid
+	UTCDatetime utc;
+	//
+	//   Adjust the CalCoords to be consistent with the precision
+	//
+	lcc.cc = adjustCalCoords(lcc.cc, precision);
+	//
+	//   Translate the frame of reference to universal levering the PeriodTimeZones array
+	//
+	lcc = translateToUniversal(lcc);
+	//
+	//  Create a UTCDatetime if other inputs are valid.  	
+	if (lcc.lccInit != 0)
+	{
+		utc.taiInit = lcc.lccInit;
+		return utc;
+	}
+	return createUTCDatetimeFromCalCoords(lcc.cc, precision, uncertainty, lcc.futureAdjust);
 }
 
 TZPeriod pBegNoPeriodTZArray(LocalCalCoords lccPrevTZVerUntil, TimeZone tzver, uint32_t ruleSetIndex,

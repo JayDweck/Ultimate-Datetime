@@ -74,25 +74,6 @@ function boxAndCompare(uf1t::UncertainFloat64, uf2t::UncertainFloat64)
     end
     return nothing
 end
-# Create a function to do a simple comparison of two LocalCalCoordsDT
-lcc1 = LocalCalCoordsDT(7, 23, 2019, "America/New_York", 2; cal=0, h=10)
-lcc2 = lcc1
-simplecomps = [:(lcc1 == lcc2), :(lcc1 != lcc2), :(lcc1 > lcc2), :(lcc1 <= lcc2), :(lcc1 < lcc2), :(lcc1 >= lcc2)]
-function simpleCompare(lcc1t::LocalCalCoordsDT, lcc2t::LocalCalCoordsDT)
-    # Need to pass the global variables to eval
-    global lcc1 = lcc1t
-    global lcc2 = lcc2t
-    print(stdout,"\n")
-    for i=1:6
-        code = simplecomps[i]
-        print(stdout, "\n", rpad(string(code),12), "   ")
-        if (eval(code) == true)
-            printstyled(stdout, eval(code), color=:light_cyan)
-        else
-            printstyled(stdout, eval(code), color=:light_red)
-        end
-    end
-end
 # Create an array to contain the code fragments
 code = Array{CodeFragment,1}()
 # Uncertain Floats
@@ -136,12 +117,6 @@ push!(code,CodeFragment("Create a UTCDatetime with default precision and uncerta
     :(utc1 = UTCDatetime(y=2019,m=7,d=23,h=11,min=45))))
 push!(code,CodeFragment("Create a 2nd UTCDatetime with default precision and uncertainty.",
     :(utc2 = UTCDatetime(y=2019,m=7,d=23,h=10,min=45))))
-# UTC Datetime Formatting
-push!(code,CodeFragment("Formatting is automatic based on precision.",
-    :(for i = -18:15;
-        utc = UTCDatetime(gy=99,y=999999999,m=12,d=31,h=23,min=59,s=59,ns=999999999,as=999999999,p=i,u=1);
-        printstyled(stdout,"\n", utc,color=:light_cyan);
-      end)))
 push!(code,CodeFragment("Subtract the 2 UTCDatetimes to produce a relative datetime.",:(rel1 = utc1 - utc2)))
 push!(code,CodeFragment("Relative datetimes can be positive or negative.",:(rel2 = utc2 - utc1)))
 # Show allowed operations on relative datetimes
@@ -175,64 +150,18 @@ push!(code,CodeFragment("The arithmetic works.",
     :(lsplus1 - lsminus1)))
 push!(code,CodeFragment("Only minutes containing leap seconds have a 60th second.",
     :(ls = UTCDatetime(y=2015,m=6,d=30,h=23,min=58,s=60))))
-# Explore time zones
-push!(code,CodeFragment("Prior to the late 19th century, time zones were based on local mean time, a type of solar time.",
-    :(lchi = LocalCalCoordsDT(5, 15, 1870, "America/Chicago", 2; cal=0, h=4))))
-push!(code,CodeFragment("The offset from UTC (GMT, at the time) was based solely on the longitude of a location.",
-    :(translate(lchi,f=0))))
-push!(code,CodeFragment("When this Chicago time is translated to a New York time, the difference is 54:34.4, not 1 hour!",
-    :(lny = translate(lchi,tz = "America/New_York"))))
-push!(code,CodeFragment("In the 20th century, we get the expected result.",
-    :(lchi = LocalCalCoordsDT(5, 15, 1950, "America/Chicago", 2; cal=0, h=4))))
-push!(code,CodeFragment("When this Chicago time is translated to a New York time, the difference is 1 hour.",
-    :(lny = translate(lchi,tz = "America/New_York"))))
-push!(code,CodeFragment("Daylight savings time began during World War I.  The Chicago time above is during daylight savings.",
-    :(lny = translate(lchi,f=1))))
-push!(code,CodeFragment("The transition to daylight savings time in 1950 took place on April 30th, the last Sunday in the month.",
-    :(lchi = LocalCalCoordsDT(4, 30, 1950, "America/Chicago", 2; h=1, min=59))))
-push!(code,CodeFragment("1:59 wall time is equivalent to 1:59 standard time.", :(translate(lchi,f=1))))
-push!(code,CodeFragment("2:01 wall time does not exist!",
-    :(lchi = LocalCalCoordsDT(4, 30, 1950, "America/Chicago", 2; h=2, min=1))))
-push!(code,CodeFragment("2:01 standard time does exist...",
-    :(lchi = LocalCalCoordsDT(4, 30, 1950, "America/Chicago", 1; h=2, min=1))))
-push!(code,CodeFragment("... and is equivalent to 3:01 wall time.",:(translate(lchi,f=2))))
-push!(code,CodeFragment("The transition back to standard time in 1950 took place on September 24th, the last Sunday in the month.",
-    :(lchi = LocalCalCoordsDT(9, 24, 1950, "America/Chicago", 2; h=0, min=59))))
-push!(code,CodeFragment("0:59 wall time is equivalent to 23:59 standard time.", :(translate(lchi,f=1))))
-push!(code,CodeFragment("1:01 wall time is ambiguous, as it occurs twice.",
-    :(lchi = LocalCalCoordsDT(9, 24, 1950, "America/Chicago", 2; h=1, min=1))))
-push!(code,CodeFragment("1:01 standard time is not ambiguous...",
-    :(lchi = LocalCalCoordsDT(9, 24, 1950, "America/Chicago", 1; h=1, min=1))))
-push!(code,CodeFragment("... and is equivalent to 1:01 wall time, after the transition.",:(translate(lchi,f=2))))
-push!(code,CodeFragment("Wall times must be disambiguated during ambiguous periods.",
-    :(lchi = LocalCalCoordsDT(9, 24, 1950, "America/Chicago", 2; h=1, min=1, ba=1))))
-push!(code,CodeFragment("1:01 before the transition is equivalent to 00:01 standard time.", :(translate(lchi,f=1))))
-push!(code,CodeFragment("Daylight savings rules have changed over time.  Prior to 2007, March 15th was standard time in New York.",
-    :(lny = LocalCalCoordsDT(3, 15, 2006, "America/New_York", 2; h=12))))
-push!(code,CodeFragment("ie, standard and wall times were the same.", :(translate(lny,f=1))))
-push!(code,CodeFragment("Beginning in 2007, daylight savings time starts the second Sunday in March, not the first Sunday in April.",
-    :(lny = LocalCalCoordsDT(3, 15, 2007, "America/New_York", 2; h=12))))
-push!(code,CodeFragment("Standard time is 1 hour less than wall time.", :(translate(lny,f=1))))
-# Revisit calendars
+# Move to LocalCalCoords
 push!(code,CodeFragment("Construct a Gregorian date in the proleptic America/New_York time zone.",
-    :(lccg = LocalCalCoordsDT(10, 15, 1582, "America/New_York", 2; cal=0, h=10))))
+    :(lccj = LocalCalCoordsDT(10, 15, 1582, "America/New_York", 2; cal=0, h=10))))
 push!(code,CodeFragment("The Julian calendar continued on - the last country to adopt the Gregorian calendar was Greece in 1923.",
-    :(lccj = LocalCalCoordsDT(10, 5, 1582, "America/New_York", 2; cal=1, h=10))))
+    :(lccg = LocalCalCoordsDT(10, 5, 1582, "America/New_York", 2; cal=1, h=10))))
 push!(code,CodeFragment("For every Gregorian datetime, there is a corresponding Julian datetime.",
     :(lccg == lccj)))
-push!(code,CodeFragment("Simple comparisons work.", :(simpleCompare(lccg, lccj))))
-push!(code,CodeFragment("Construct a later Gregorian date.",
-    :(lccg2 = LocalCalCoordsDT(10, 16, 1582, "America/New_York", 2; cal=0, h=10))))
-push!(code,CodeFragment("Compare.", :(simpleCompare(lccg2, lccj))))
-push!(code,CodeFragment("Arithmetic works for this type, too.", :(lccg2 - lccj)))
-#Show Swedish calendar
-push!(code,CodeFragment("Sweden did something strange in 1712.",
-    :(lccsw = LocalCalCoordsDT(2, 30, 1712, "America/New_York", 2; cal=2, h=10))))
-push!(code,CodeFragment("The Julian calendar is 1 day ahead, since Sweden skipped 2-29-1700.",
-    :(lccj = LocalCalCoordsDT(2, 29, 1712, "America/New_York", 2; cal=1, h=10))))
-push!(code,CodeFragment("Arithmetic is calendar aware.", :(lccsw - lccj)))
-push!(code,CodeFragment("When last we checked, the Gregorian calendar was 10 days ahead of the Julian calendar.",
-    :(lccg = LocalCalCoordsDT(3, 10, 1712, "America/New_York", 2; cal=0, h=10))))
-push!(code,CodeFragment("What the heck???", :(lccg - lccj)))
+# UTC Datetime Formatting
+push!(code,CodeFragment("Formatting is automatic based on precision.",
+    :(for i = -18:15;
+        utc = UTCDatetime(gy=99,y=999999999,m=12,d=31,h=23,min=59,s=59,ns=999999999,as=999999999,p=i,u=1);
+        printstyled(stdout,"\n", utc,color=:light_cyan);
+      end)))
 map(demo_code, code)
 nothing

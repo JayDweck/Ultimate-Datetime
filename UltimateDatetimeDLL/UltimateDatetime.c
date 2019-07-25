@@ -1909,7 +1909,7 @@ char * sprintfUncertaintyUTCDatetime(int8_t uncertainty, int8_t precision)
 	int iprec;
 
 	// Check whether uncertainty can be calculated
-	if (precision == 99)
+	if (precision == 99 || (precision != maxPrecision && uncertainty == 0))
 	{
 		// Precision not specified
 		return blank;
