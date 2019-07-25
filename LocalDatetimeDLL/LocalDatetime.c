@@ -1922,36 +1922,43 @@ int isLessOrEqualLocalCalCoordsDT(LocalCalCoordsDT lcc1, LocalCalCoordsDT lcc2)
 TAIRelDatetime diffLocalCalCoordsDTs(LocalCalCoordsDT u1, LocalCalCoordsDT u2)
 {
 	// Subtract LocalCalCoordsDTs and return a TAIRelDatetime
-	LocalDatetime ldt1, ldt2;
+	UTCDatetime utc1, utc2;
 
-	// Create local datetimes
-	ldt1 = createLocalDatetimeFromLocalCalCoordsDT(u1, 99, 0);
-	ldt2 = createLocalDatetimeFromLocalCalCoordsDT(u2, 99, 0);
+	// Create UTCDatetimes, which will create ticks.
+	// LocalCalCoords do not have precision and uncertainty.
+	utc1 = createUTCDatetimeFromLocalCalCoordsDT(u1, 99, 0);
+	utc2 = createUTCDatetimeFromLocalCalCoordsDT(u2, 99, 0);
 
 	// Subtract the ticks 
-	TAIRelTicks r1 = diffTicks(ldt1.tai, ldt2.tai);
+	TAIRelTicks r1 = diffTicks(utc1.tai, utc2.tai);
 
 	// Derive the TAIRelDatetime from the reltick value
 	return deriveTAIRelDatetime(r1, 99, 0);
 }
 
-/* ***** Not yet implemented
 LocalCalCoordsDT addRelToLocalCalCoordsDT(LocalCalCoordsDT u1, TAIRelDatetime re1, uint8_t futureAdjust)
 {
-	// Add a TAI relative datetime to a UTC datetime and return a UTC datetime.
-	//	Allow for a futureAdjust value different than the input UTC datetime, but
+	// Add a TAI relative datetime to a LocalCalCoordsDT and return a LocalCalCoordsDT.
+	//	Allow for a futureAdjust value different than the input UTC LocalCalCoords, but
 	//	keep the same calendar.
 
+	UTCDatetime utc1, utc2;
+
+	// Create a UTCDatetimes, which will create ticks.
+	// LocalCalCoords do not have precision and uncertainty.
+	utc1 = createUTCDatetimeFromLocalCalCoordsDT(u1, 99, 0);
+
 	// Add the tick values
-	TAITicks t1 = addRelTicksToTicks(u1.tai, re1.relTicks);
+	TAITicks t1 = addRelTicksToTicks(utc1.tai, re1.relTicks);
 
-	// Calculate the precision and uncertainty
-	PrecisionUncertainty pu1 = addPrecisionUncertainty(u1.precision, u1.uncertainty, 0,
-		re1.precision, re1.uncertainty, 1);
-
-	// Derive the LocalCalCoordsDT from the tick value
+	// Derive a UTCDatetime from the tick value
 	//  If there was an overflow, t1 will be set to EndOfTimePlus, triggering an error
 	//		in deriveLocalCalCoordsDT
+	utc2 = deriveUTCDatetime(t1, 99, 0, futureAdjust);
+
+	// Create a universal LocalCalCoordsDT
+	// Translate to the original frame
+
 	return deriveLocalCalCoordsDT(t1, pu1.precision, pu1.uncertainty, futureAdjust);
 }
 
@@ -1973,7 +1980,7 @@ LocalCalCoordsDT subtractRelFromLocalCalCoordsDT(LocalCalCoordsDT u1, TAIRelDate
 	//		in deriveLocalCalCoordsDT
 	return deriveLocalCalCoordsDT(t1, pu1.precision, pu1.uncertainty, futureAdjust);
 }
-*/
+
 const char * asStringLocalCalCoordsDT(LocalCalCoordsDT lcc, char stringCal[])
 {
 	// Format a LocalCalCoordsDT as a readable string
@@ -5481,6 +5488,30 @@ LocalDatetime createLocalDatetimeFromLocalCalCoordsDT(LocalCalCoordsDT lcc, int8
 	ldt.sToWMinutes = lcc.sToWMinutes;
 	ldt.ldtInit = 0;
 	return ldt;
+}
+
+UTCDatetime createUTCDatetimeFromLocalCalCoordsDT(LocalCalCoordsDT lcc, int8_t precision,
+	int8_t uncertainty)
+{
+	// Create a UTCDatetime from a LocalCalCoords
+	//	Assume LocalCalCoords is valid
+	UTCDatetime utc;
+	//
+	//   Adjust the CalCoords to be consistent with the precision
+	//
+	lcc.cc = adjustCalCoords(lcc.cc, precision);
+	//
+	//   Translate the frame of reference to universal levering the PeriodTimeZones array
+	//
+	lcc = translateToUniversal(lcc);
+	//
+	//  Create a UTCDatetime if other inputs are valid.  	
+	if (lcc.lccInit != 0)
+	{
+		utc.taiInit = lcc.lccInit;
+		return utc;
+	}
+	return createUTCDatetimeFromCalCoords(lcc.cc, precision, uncertainty, lcc.futureAdjust);
 }
 
 TZPeriod pBegNoPeriodTZArray(LocalCalCoords lccPrevTZVerUntil, TimeZone tzver, uint32_t ruleSetIndex,

@@ -874,6 +874,10 @@ DLLExport LocalCalCoordsDT translateLocalCalCoordsDT(LocalCalCoordsDT lcc, char 
 DLLExport LocalDatetime createLocalDatetimeFromLocalCalCoordsDT(LocalCalCoordsDT cc, int8_t precision,
 	int8_t uncertainty);
 
+// Create a UTCDatetime from a LocalCalCoordsDT
+DLLExport UTCDatetime createUTCDatetimeFromLocalCalCoordsDT(LocalCalCoordsDT cc, int8_t precision,
+	int8_t uncertainty);
+
 // Determine the untilCoords associated with the last Julian day for a specified time zone and frame of reference
 DLLExport LocalCalCoordsDT julianUntilCoords(uint32_t calendar, uint32_t timezoneIndex, uint8_t frame);
 
