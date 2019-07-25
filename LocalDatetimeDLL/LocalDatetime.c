@@ -1935,7 +1935,7 @@ TAIRelDatetime diffLocalCalCoordsDTs(LocalCalCoordsDT u1, LocalCalCoordsDT u2)
 	// Derive the TAIRelDatetime from the reltick value
 	return deriveTAIRelDatetime(r1, 99, 0);
 }
-
+/***** In progress
 LocalCalCoordsDT addRelToLocalCalCoordsDT(LocalCalCoordsDT u1, TAIRelDatetime re1, uint8_t futureAdjust)
 {
 	// Add a TAI relative datetime to a LocalCalCoordsDT and return a LocalCalCoordsDT.
@@ -1980,6 +1980,7 @@ LocalCalCoordsDT subtractRelFromLocalCalCoordsDT(LocalCalCoordsDT u1, TAIRelDate
 	//		in deriveLocalCalCoordsDT
 	return deriveLocalCalCoordsDT(t1, pu1.precision, pu1.uncertainty, futureAdjust);
 }
+*******/
 
 const char * asStringLocalCalCoordsDT(LocalCalCoordsDT lcc, char stringCal[])
 {
