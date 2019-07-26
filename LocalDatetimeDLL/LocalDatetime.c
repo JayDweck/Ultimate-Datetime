@@ -607,6 +607,93 @@ LocalCalCoordsDT createLocalCalCoordsDTFromCalCoords(CalCoords cc, const char ti
 	return lcc;
 }
 
+LocalCalCoordsDT createLocalCalCoordsDTFromUTCDatetime(UTCDatetime utc, const char timezone[],
+	uint8_t frame, uint32_t calendar, uint8_t futureAdjust)
+{
+	// Create a LocalCalCoordsDT from a UTCDatetime, time zone elements and calendar
+	LocalCalCoordsDT lcc;
+	uint32_t i, j;
+	uint8_t frameInt;
+
+	//  Load the cc portion, but do not assume it was initialized correctly
+	lcc.cc = createCalCoords(utc.gigayear, utc.year, utc.month, utc.dayOfMonth, utc.hour, utc.minute,
+		utc.second, getNanosecond(utc.tai), getAttosecond(utc.tai), 0);
+	lcc.bOrA = 0; // Initial value consistent with creation from UTCDatetime
+	lcc.frame = 0; // Initial value consistent with creation from UTCDatetime
+	lcc.lccInit = utc.taiInit;
+
+	// Check the validity of the time zone
+	//	Do not allow a blank time zone
+	if (strnlen_s(timezone, maxTZNameLength) == 0 ||
+		(strnlen_s(timezone, maxTZNameLength) == 1 && timezone[0] == ' '))
+	{
+		// Blank time zone
+		lcc.timezone[0] = '\0';
+		lcc.timezoneIndex = numTimeZones;
+		lcc.lccInit |= InvalidTimeZone;
+	}
+	else
+	{
+		for (i = 0; i < numTimeZones; i++)
+		{
+			for (j = 0; j < maxNamesPerTimeZone; j++)
+			{
+				if (strncmp(timezone, TimeZones[i][j], maxTZNameLength) == 0)
+				{
+					// Time zone is valid
+					// Load the time zone name instead of the link to speed searches
+					strcpy_s(lcc.timezone, sizeof(lcc.timezone), TimeZones[i][0]);
+					goto end;
+				}
+			}
+		}
+	end:
+		// Check whether a match was found
+		if (i == numTimeZones)
+		{
+			// No match found
+			lcc.timezone[0] = '\0';
+			lcc.lccInit |= InvalidTimeZone;
+		}
+		lcc.timezoneIndex = i;
+	}
+	// Check other elements
+	if (frame == 'u' || frame == 'U' || frame == 0) frameInt = 0;
+	else if (frame == 's' || frame == 'S' || frame == 1) frameInt = 1;
+	else if (frame == 'w' || frame == 'W' || frame == 2) frameInt = 2;
+	else
+	{
+		// Invalid frame of reference
+		lcc.frame = 3;
+		lcc.lccInit |= InvalidTimeFrame;
+	}
+	if (futureAdjust < 3) lcc.futureAdjust = futureAdjust;
+	else
+	{
+		// Invalid future adjust
+		lcc.futureAdjust = 3;
+		lcc.lccInit |= InvalidFutureAdjust;
+	}
+	// If the previous validity checks have been passed, compute the time zone related fields
+	//	using the PeriodTimeZone array
+	if (lcc.lccInit == 0) lcc = computeTZFields(lcc);
+	// Check leap second specification
+	// A UTCDatetime is on the proleptic Gregorian calendar and Universal time frame so
+	//	no conversion or translation is necessary to perform a leap second check.
+	//	By the leap second era, all GMT offsets were in even numbers of minutes, so
+	//	 a leap second would always be during the 60th second
+	if (lcc.lccInit == 0 && lcc.cc.time.second == 60)
+	{
+		if (!isLeapSecondDay(lcc.cc.date.gigayear, lcc.cc.date.year, lcc.cc.date.month,
+			lcc.cc.date.dayOfMonth) || lcc.cc.time.hour != 23 || lcc.cc.time.minute != 59)
+			lcc.lccInit |= NotALeapSecond;
+	}
+	// Do a calendar conversion, if necessary
+	if (calendar != 0) lcc.cc = convertCalToCalendar(lcc.cc, calendar);
+	// Next translate the frame of reference
+	return translateFromUniversal(lcc, timezone, frameInt);
+}
+
 LocalCalCoordsDT createLocalCalCoordsDTFromDayOfYear(int8_t gigayear, int32_t year, uint32_t dayOfYear,
 	uint8_t hour, uint8_t minute, uint8_t second, uint32_t nanosecond,
 	uint32_t attosecond, uint32_t calendar, const char timezone[], uint8_t frame, uint8_t bOrA, uint8_t futureAdjust)
@@ -1935,7 +2022,7 @@ TAIRelDatetime diffLocalCalCoordsDTs(LocalCalCoordsDT u1, LocalCalCoordsDT u2)
 	// Derive the TAIRelDatetime from the reltick value
 	return deriveTAIRelDatetime(r1, 99, 0);
 }
-/***** In progress
+
 LocalCalCoordsDT addRelToLocalCalCoordsDT(LocalCalCoordsDT u1, TAIRelDatetime re1, uint8_t futureAdjust)
 {
 	// Add a TAI relative datetime to a LocalCalCoordsDT and return a LocalCalCoordsDT.
@@ -1944,7 +2031,7 @@ LocalCalCoordsDT addRelToLocalCalCoordsDT(LocalCalCoordsDT u1, TAIRelDatetime re
 
 	UTCDatetime utc1, utc2;
 
-	// Create a UTCDatetimes, which will create ticks.
+	// Create a UTCDatetime, which will create ticks.
 	// LocalCalCoords do not have precision and uncertainty.
 	utc1 = createUTCDatetimeFromLocalCalCoordsDT(u1, 99, 0);
 
@@ -1956,31 +2043,33 @@ LocalCalCoordsDT addRelToLocalCalCoordsDT(LocalCalCoordsDT u1, TAIRelDatetime re
 	//		in deriveLocalCalCoordsDT
 	utc2 = deriveUTCDatetime(t1, 99, 0, futureAdjust);
 
-	// Create a universal LocalCalCoordsDT
-	// Translate to the original frame
-
-	return deriveLocalCalCoordsDT(t1, pu1.precision, pu1.uncertainty, futureAdjust);
+	// Create a LocalCalCoordsDT from utc2
+	return createLocalCalCoordsDTFromUTCDatetime(utc2, u1.timezone, u1.frame, u1.cc.date.calendar, futureAdjust);
 }
 
 LocalCalCoordsDT subtractRelFromLocalCalCoordsDT(LocalCalCoordsDT u1, TAIRelDatetime re1, uint8_t futureAdjust)
 {
-	// Subtract a TAI relative datetime from a UTC datetime and return a UTC datetime.
-	//	Allow for a futureAdjust value different than the input UTC datetime, but
+	// Subtract a TAI relative datetime from a LocalCalCoordsDT and return a LocalCalCoordsDT.
+	//	Allow for a futureAdjust value different than the input UTC LocalCalCoords, but
 	//	keep the same calendar.
 
+	UTCDatetime utc1, utc2;
+
+	// Create a UTCDatetime, which will create ticks.
+	// LocalCalCoords do not have precision and uncertainty.
+	utc1 = createUTCDatetimeFromLocalCalCoordsDT(u1, 99, 0);
+
 	// Add the tick values
-	TAITicks t1 = subtractRelTicksFromTicks(u1.tai, re1.relTicks);
+	TAITicks t1 = subtractRelTicksFromTicks(utc1.tai, re1.relTicks);
 
-	// Calculate the precision and uncertainty
-	PrecisionUncertainty pu1 = addPrecisionUncertainty(u1.precision, u1.uncertainty, 0,
-		re1.precision, re1.uncertainty, 1);
-
-	// Derive the LocalCalCoordsDT from the tick value
+	// Derive a UTCDatetime from the tick value
 	//  If there was an overflow, t1 will be set to EndOfTimePlus, triggering an error
 	//		in deriveLocalCalCoordsDT
-	return deriveLocalCalCoordsDT(t1, pu1.precision, pu1.uncertainty, futureAdjust);
+	utc2 = deriveUTCDatetime(t1, 99, 0, futureAdjust);
+
+	// Create a LocalCalCoordsDT from utc2
+	return createLocalCalCoordsDTFromUTCDatetime(utc2, u1.timezone, u1.frame, u1.cc.date.calendar, futureAdjust);
 }
-*******/
 
 const char * asStringLocalCalCoordsDT(LocalCalCoordsDT lcc, char stringCal[])
 {
@@ -5152,7 +5241,7 @@ LocalCalCoordsDT translateFrame(LocalCalCoordsDT lcc, uint8_t frame)
 	}
 }
 
-LocalCalCoordsDT translateFromUniversal(LocalCalCoordsDT lcc, char timezone[], uint8_t frame)
+LocalCalCoordsDT translateFromUniversal(LocalCalCoordsDT lcc, const char timezone[], uint8_t frame)
 {
 	// Translate a LocalCalCoordsDT in a universal frame of reference to a LocalCalCoordsDT
 	//	in a specified (generally different) time zone and frame of reference
@@ -5421,7 +5510,7 @@ LocalCalCoordsDT translateFromUniversal(LocalCalCoordsDT lcc, char timezone[], u
 	return lccInput; */
 }
 
-LocalCalCoordsDT translateLocalCalCoordsDT(LocalCalCoordsDT lcc, char timezone[], uint8_t frame)
+LocalCalCoordsDT translateLocalCalCoordsDT(LocalCalCoordsDT lcc, const char timezone[], uint8_t frame)
 {
 	// Translate a LocalCalCoordsDT to a specified time zone and frame of reference
 	//	 Translate to universal frame of reference

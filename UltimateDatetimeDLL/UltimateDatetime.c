@@ -3631,6 +3631,7 @@ int cumLeapSecondsUnadj(TAITicks unadjt1, int isPotentialLeapSecond)
 	static int initialized = 0;
 	int i;
 	int cumLeap;
+	static TAIRelTicks oneSecond;
 	static TAITicks unadjLeapSeconds[numLeapSeconds]; // Unadjusted tick count at start of leap second
 
 	// Only call this once
@@ -3640,6 +3641,7 @@ int cumLeapSecondsUnadj(TAITicks unadjt1, int isPotentialLeapSecond)
 		{
 			unadjLeapSeconds[i] = createTicks(leapTicks[i][0], leapTicks[i][1], 0, 0);
 		}
+		oneSecond = createRelTicks(0, 1, 0, 0, 0);
 		initialized = 1;
 	}
 
@@ -3648,11 +3650,12 @@ int cumLeapSecondsUnadj(TAITicks unadjt1, int isPotentialLeapSecond)
 	{
 		return 0;
 	}
-	if (isGreaterTicks(unadjt1, unadjLeapSeconds[numLeapSeconds - 1]))
+	if (isGreaterOrEqualTicks(unadjt1, addRelTicksToTicks(unadjLeapSeconds[numLeapSeconds - 1], oneSecond)))
 	{
 		return numLeapSeconds + 2*e9;
 	}
-	if (isEqualTicks(unadjt1, unadjLeapSeconds[numLeapSeconds - 1]))
+	if (isGreaterOrEqualTicks(unadjt1, unadjLeapSeconds[numLeapSeconds - 1]) &&
+		isLessTicks(unadjt1, addRelTicksToTicks(unadjLeapSeconds[numLeapSeconds - 1], oneSecond)))
 	{
 		// Time equals last leap second 
 		if (isPotentialLeapSecond)
@@ -3672,7 +3675,7 @@ int cumLeapSecondsUnadj(TAITicks unadjt1, int isPotentialLeapSecond)
 			 isLessTicks(unadjt1, unadjLeapSeconds[i+1]) )
 		{
 			// Time is within this interval
-			if ( isGreaterTicks(unadjt1, unadjLeapSeconds[i] ) )
+			if ( isGreaterOrEqualTicks(unadjt1, addRelTicksToTicks(unadjLeapSeconds[i], oneSecond)))
 			{
 				// Time is after ith leap second
 				cumLeap = i + 1;
@@ -3722,6 +3725,7 @@ int cumLeapSecondsAdj(TAITicks adjt1)
 	static int initialized = 0;
 	int i;
 	int cumLeap;
+	static TAIRelTicks oneSecond;
 	static TAITicks adjLeapSeconds[numLeapSeconds]; // Adjusted tick count at start of leap second
 
 	// Only call this once
@@ -3731,6 +3735,7 @@ int cumLeapSecondsAdj(TAITicks adjt1)
 		{
 			adjLeapSeconds[i] = createTicks(leapTicks[i][0], leapTicks[i][1] + 10 + i, 0, 0);
 		}
+		oneSecond = createRelTicks(0, 1, 0, 0, 0);
 		initialized = 1;
 	}
 
@@ -3739,11 +3744,12 @@ int cumLeapSecondsAdj(TAITicks adjt1)
 	{
 		return 0;
 	}
-	if (isGreaterTicks(adjt1, adjLeapSeconds[numLeapSeconds - 1]))
+	if (isGreaterOrEqualTicks(adjt1, addRelTicksToTicks(adjLeapSeconds[numLeapSeconds - 1], oneSecond)))
 	{
 		return numLeapSeconds;
 	}
-	if (isEqualTicks(adjt1, adjLeapSeconds[numLeapSeconds - 1]))
+	if (isGreaterOrEqualTicks(adjt1, adjLeapSeconds[numLeapSeconds - 1]) &&
+		isLessTicks(adjt1, addRelTicksToTicks(adjLeapSeconds[numLeapSeconds - 1], oneSecond)))
 	{
 		// Time equals last leap second 
 		return -numLeapSeconds;
@@ -3755,7 +3761,7 @@ int cumLeapSecondsAdj(TAITicks adjt1)
 			 isLessTicks(adjt1, adjLeapSeconds[i+1]) )
 		{
 			// Time is within this interval
-			if ( isGreaterTicks(adjt1, adjLeapSeconds[i] ) )
+			if (isGreaterOrEqualTicks(adjt1, addRelTicksToTicks(adjLeapSeconds[i], oneSecond)))
 			{
 				// Time is after ith leap second
 				cumLeap = i + 1;

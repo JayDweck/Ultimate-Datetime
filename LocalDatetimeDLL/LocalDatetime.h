@@ -766,6 +766,8 @@ DLLExport LocalCalCoordsDT createLocalCalCoordsDT(int8_t gigayear, int32_t year,
 	uint32_t calendar, const char timezone[], uint8_t frame, uint8_t bOrA, uint8_t futureAdjust);
 DLLExport LocalCalCoordsDT createLocalCalCoordsDTFromCalCoords(CalCoords cc, const char timezone[],
 	uint8_t frame, uint8_t bOrA, uint8_t futureAdjust);
+DLLExport LocalCalCoordsDT createLocalCalCoordsDTFromUTCDatetime(UTCDatetime utc, const char timezone[],
+	uint8_t frame, uint32_t calendar, uint8_t futureAdjust);
 DLLExport LocalCalCoordsDT createLocalCalCoordsDTFromDayOfYear(int8_t gigayear, int32_t year, uint32_t dayOfYear,
 	uint8_t hour, uint8_t minute, uint8_t second, uint32_t nanosecond,
 	uint32_t attosecond, uint32_t calendar, const char timezone[], uint8_t frame, uint8_t bOrA, uint8_t futureAdjust);
@@ -865,10 +867,10 @@ DLLExport LocalCalCoordsDT translateToUniversal(LocalCalCoordsDT lcc);
 DLLExport LocalCalCoordsDT translateFrame(LocalCalCoordsDT lcc, uint8_t frame);
 
 // Translate a LocalCalCoordsDT from univeral frame of reference to a specified time zone and frame of reference
-DLLExport LocalCalCoordsDT translateFromUniversal(LocalCalCoordsDT lcc, char timezone[], uint8_t frame);
+DLLExport LocalCalCoordsDT translateFromUniversal(LocalCalCoordsDT lcc, const char timezone[], uint8_t frame);
 
 // Translate a LocalCalCoordsDT to a specified time zone and frame of reference
-DLLExport LocalCalCoordsDT translateLocalCalCoordsDT(LocalCalCoordsDT lcc, char timezone[], uint8_t frame);
+DLLExport LocalCalCoordsDT translateLocalCalCoordsDT(LocalCalCoordsDT lcc, const char timezone[], uint8_t frame);
 
 // Create a LocalDatetime from a LocalCalCoordsDT
 DLLExport LocalDatetime createLocalDatetimeFromLocalCalCoordsDT(LocalCalCoordsDT cc, int8_t precision,

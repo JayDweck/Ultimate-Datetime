@@ -1275,6 +1275,22 @@ function -(x::LocalCalCoordsDT, y::LocalCalCoordsDT)
     return (ccall(Libdl.dlsym(LocLib,:diffLocalCalCoordsDTs), TAIRelDatetime,
                     (LocalCalCoordsDT, LocalCalCoordsDT),x,y))
 end
+# Add TAIRelDatetime to LocalCalCoordsDT
+#    Set futureAdjust to 1
+function +(x::LocalCalCoordsDT, y::TAIRelDatetime)
+    return (ccall(Libdl.dlsym(LocLib, :addRelToLocalCalCoordsDT), LocalCalCoordsDT,
+                    (LocalCalCoordsDT, TAIRelDatetime, UInt8),x,y,1))
+end
+# Add LocalCalCoordsDT to TAIRelDatetime
+function +(x::TAIRelDatetime, y::LocalCalCoordsDT)
+    return (y + x)
+end
+# Subtract TAIRelDatetime from LocalCalCoordsDT
+#    Set futureAdjust to 1
+function -(x::LocalCalCoordsDT, y::TAIRelDatetime)
+    return (ccall(Libdl.dlsym(LocLib, :subtractRelFromLocalCalCoordsDT), LocalCalCoordsDT,
+                    (LocalCalCoordsDT, TAIRelDatetime, UInt8),x,y,1))
+end
 # Translate a LocalCalCoordsDT to universal frame of reference
 function translateToUniversal(z::LocalCalCoordsDT)
 #    tzIndex = Ref{Cuint}(0)
