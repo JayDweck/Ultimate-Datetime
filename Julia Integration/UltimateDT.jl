@@ -13,7 +13,7 @@ export ==′, !=′, ==″, !=″, ==‴, !=‴, >′, >″, >=′, >=″, <′,
 export TAITicks, TAIRelTicks, UTCDatetime, TAIRelDatetime, UncertainFloat64, DateCoords
 export UTCOffset, UTCDatetime, CalCoords, LocalCalCoordsDT
 export asJulian, asGregorian, asCalendar
-export showDatetime, translate
+export showDatetime, translate, translateToUniversal
 # Open the C libraries
 # Open preferentially on the Z: drive, which will be the case when working at home
 # UDTLib = Libdl.dlopen("W:\\Shared\\Users\\Jay\\Ultimate Datetime Datatype\\Ultimate Datetime\\x64\\Debug\\UltimateDatetimeDLL")

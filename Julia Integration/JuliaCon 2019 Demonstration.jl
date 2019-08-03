@@ -225,7 +225,7 @@ push!(code,CodeFragment("Construct a later Gregorian date.",
     :(lccg2 = LocalCalCoordsDT(10, 16, 1582, "America/New_York", 2; cal=0, h=10))))
 push!(code,CodeFragment("Compare.", :(simpleCompare(lccg2, lccj))))
 push!(code,CodeFragment("Arithmetic works for this type, too.", :(lccg2 - lccj)))
-#Show Swedish calendar
+# Show Swedish calendar
 push!(code,CodeFragment("Sweden did something strange in 1712.",
     :(lccsw = LocalCalCoordsDT(2, 30, 1712, "America/New_York", 2; cal=2, h=10))))
 push!(code,CodeFragment("The Julian calendar is 1 day ahead, since Sweden skipped 2-29-1700.",
@@ -234,5 +234,42 @@ push!(code,CodeFragment("Arithmetic is calendar aware.", :(lccsw - lccj)))
 push!(code,CodeFragment("When last we checked, the Gregorian calendar was 10 days ahead of the Julian calendar.",
     :(lccg = LocalCalCoordsDT(3, 10, 1712, "America/New_York", 2; cal=0, h=10))))
 push!(code,CodeFragment("What the heck???", :(lccg - lccj)))
+# Investigate the early atomic period
+push!(code,CodeFragment("Let's take a deeper look at atomic time.  Create a datetime in the early atomic period.",
+    :(lcce1 = LocalCalCoordsDT(6, 15, 1959, "America/New_York", 2; h=5, min=3))))
+push!(code,CodeFragment("Create another datetime 1 second later.",
+    :(lcce2 = LocalCalCoordsDT(6, 15, 1959, "America/New_York", 2; h=5, min=3, s=1))))
+push!(code,CodeFragment("Huh! Have we discovered a bug in local datetimes?",
+    :(lcce2 - lcce1)))
+push!(code,CodeFragment("Let's try it with UTCDatetims.  Surely they have been better tested.",
+    :(utce1 = UTCDatetime(m=6, d=15, y=1959, h=5, min=3, p=-9))))
+push!(code,CodeFragment("Create another datetime 1 second later.",
+    :(utce2 = UTCDatetime(m=6, d=15, y=1959, h=5, min=3, s=1, p=-9))))
+push!(code,CodeFragment("Uh oh!  Wait, maybe it isn't a bug...",
+    :(utce2 - utce1)))
+push!(code,CodeFragment("Things changed in 1961.",
+    :(utce1 = UTCDatetime(m=12, d=31, y=1960, h=23, min=59, s=59, p=-9))))
+push!(code,CodeFragment("Create another datetime 1 second later.",
+    :(utce2 = UTCDatetime(m=1, d=1, y=1961, h=0, min=0, s=0, p=-9))))
+push!(code,CodeFragment("A jump!", :(utce2 - utce1)))
+push!(code,CodeFragment("Create another datetime 1 second later.",
+    :(utce3 = UTCDatetime(m=1, d=1, y=1961, h=0, min=0, s=1, p=-9))))
+push!(code,CodeFragment("A longer second!", :(utce3 - utce2)))
+push!(code,CodeFragment("Things changed, again, in 1968.",
+    :(utce1 = UTCDatetime(m=12, d=31, y=1967, h=23, min=59, s=59, p=-9))))
+push!(code,CodeFragment("Create another datetime 1 second later.",
+    :(utce2 = UTCDatetime(m=1, d=1, y=1968, h=0, min=0, s=0, p=-9))))
+push!(code,CodeFragment("Another jump!", :(utce2 - utce1)))
+push!(code,CodeFragment("Create another datetime 1 second later.",
+    :(utce3 = UTCDatetime(m=1, d=1, y=1968, h=0, min=0, s=1, p=-9))))
+push!(code,CodeFragment("A slightly longer second!", :(utce3 - utce2)))
+push!(code,CodeFragment("Things settled down in 1972.",
+    :(utce1 = UTCDatetime(m=12, d=31, y=1971, h=23, min=59, s=59, p=-9))))
+push!(code,CodeFragment("Create another datetime 1 second later.",
+    :(utce2 = UTCDatetime(m=1, d=1, y=1972, h=0, min=0, s=0, p=-9))))
+push!(code,CodeFragment("The last irregular jump.", :(utce2 - utce1)))
+push!(code,CodeFragment("Create another datetime 1 second later.",
+    :(utce3 = UTCDatetime(m=1, d=1, y=1972, h=0, min=0, s=1, p=-9))))
+push!(code,CodeFragment("Seconds only last a second after the introduction of leap seconds.", :(utce3 - utce2)))
 map(demo_code, code)
 nothing
